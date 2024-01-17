@@ -1,0 +1,68 @@
+[code_contests_prompt_analyze_failure]
+temperature = 0.3
+system = """\
+"""
+user="""\
+You are given a code contest problem, and a self-reflection on the problem:
+
+
+problem description:
+======
+{{ description_short|trim }}
+======
+
+
+self-reflection on the problem:
+======
+{{ self_reflection|trim }}
+======
+
+
+A Python code solution was generated for the problem:
+======
+{{ code_recent_solution|trim }}
+======
+
+
+However, when running the following input example, the code solution above failed to produce the expected output:
+======
+{{ error_str|trim }}
+======
+
+{%- if use_test_explanations_public %}
+
+Here is an explanation of how the input should have led to the expected output:
+======
+{{ test_explanation_current|trim }}
+======
+{%- endif %}
+
+
+Your goal is to analyze the code solution and the error, and propose a fix so the code will produce the expected output for the provided test input.
+The fix should keep the solution robust, and work for all other input examples as well.
+Make sure the fix has a reasonable runtime - less than three seconds on a modern computer, given the problem constraints for large input.
+
+
+The output must be a YAML object equivalent to type $FixedSolution, according to the following Pydantic definitions:
+======
+class FixedSolution(BaseModel):
+    failed_tests: str = Field(description="List the input-output tests that failed. use the format [{input: .., expected_output: .., code_output: ..}, ...]")
+    what_went_wrong: str = Field(description="Explanation shortly, in words, what was the problem with the code solution, and how should it be fix. Be as specific as possible. Don't generate actuall code.")
+    fixed_flow: str = Field(description="Describe, in bullet points, a fixed flow that will calculate the correct output. be specific and elaborate. Emphasize the fixed parts, and how they apply to getting the correct output")
+======
+
+
+Example YAML output:
+```yaml
+failed_tests: |
+  ...
+what_went_wrong: |
+  ...
+fixed_flow: |
+  ...
+```
+
+
+Answer:
+```yaml
+"""

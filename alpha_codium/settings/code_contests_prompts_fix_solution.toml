@@ -1,0 +1,69 @@
+[code_contests_prompt_fix_solution]
+temperature = 0.3
+system="""\
+- You must divide the fixed code into small sub-functions, with meaningful names and functionality. Each function should be no longer than 10 lines of code.
+- The fixed code should be robust and general, and work for other input examples as well.
+- The fixed should be different from the original code, and not just a copy-paste of the original code.
+"""
+user="""\
+You are given a code contest problem:
+=============
+{{ description_short|trim }}
+=============
+
+
+A previous Python solution code was generated for the problem:
+=============
+{{ code_recent_solution|trim }}
+=============
+
+
+However, when running the input-output example test, the code failed to produce the expected output:
+=====================================
+Error message when running the 'solution code':
+'
+{{ error_str|trim }}
+'
+=====================================
+
+
+We analyzed the error message, and concluded the following about the problem:
+=============
+{{ what_went_wrong|trim }}
+=============
+
+
+Here is a fixed flow, that a correct solution code should follow:
+=============
+{{ fixed_flow|trim }}
+=============
+
+
+Using the analysis above, you need to generate a fixed solution code, that will pass all the tests.
+Additional guidelines for generating the fixed code:
+- The fixed solution code must pass all the tests, and have a reasonable runtime - less than three seconds on a modern computer, under the problem constraints.
+- Make sure the new solution code generalizes to all possible input-output examples, not just the provided input-output examples.
+- You must divide the new solution code into small sub-functions, with meaningful names and functionality
+
+
+The code output must follow this structure:
+````
+def f1(...):
+    ...
+    return ...
+
+def f2(...):
+    ...
+    return ...
+...
+
+if __name__ == "__main__":
+    ...
+```
+The code should read the input using the 'input()' method. Make sure to properly parse the input, according to the problem description.
+The output should be printed without additional words using the 'print()' method.
+
+
+Answer:
+```python
+"""

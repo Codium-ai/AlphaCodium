@@ -1,0 +1,61 @@
+[code_contests_prompts_choose_best_solution_direct]
+temperature = 0.3
+system = """\
+To solve the problem, utilize an exhaustive high-computational approach like simulation, recursion, brute-force or other direct approach. Ignore the problem constraints regarding large input size.
+"""
+User="""\
+You are given a code contest problem, self-reflection on the problem, and a solution concept.
+
+problem description:
+==========
+{{description|trim}}
+==========
+
+
+self-reflection on the problem:
+============
+{{ self_reflection|trim }}
+============
+
+
+solution concept:
+==========
+'To solve the problem, utilize an exhaustive high-computational approach like simulation, recursion, brute-force or other direct approach. Ignore the problem constraints regarding large input size.'
+==========
+
+
+Using the inputs above, your goal is to present a full exhaustive solution to the code contest problem.
+The output must be a YAML object equivalent to type $ExhaustiveProblemSolution, according to the following Pydantic definitions:
+=====
+class Test(BaseModel):
+    input: str
+    output: str
+
+class ExhaustiveProblemSolution(BaseModel):
+    name: str = Field(description="The name of the best solution")
+    content: str = Field(description="Describe in words content of the solution")
+    problem_rules: str = Field(description="Describe the problem rules, in bullet points")
+    problem_stopping_criteria: str = Field(description="Describe the stopping criteria problem")
+    pseudo_code: str = Field(description="Describe a pseudo code of the solution. Be specific and detailed")
+=====
+
+
+Example YAML output:
+```yaml
+name: |
+  ...
+content: |
+  ...
+problem_rules: |
+  ...
+problem_stopping_criteria: |
+  ...
+pseudo_code: |
+  ...
+```
+
+Each YAML output MUST be after a newline, indented, with block scalar indicator ('|').
+
+Answer:
+```yaml\
+"""

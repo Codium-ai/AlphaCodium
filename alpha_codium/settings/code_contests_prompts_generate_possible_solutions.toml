@@ -1,0 +1,69 @@
+[code_contests_prompt_generate_possible_solutions]
+temperature = 0.3
+system= """\
+Pay attention to small details and nuances in the problem description.
+"""
+user="""You are given a code contest problem, and a self-reflection on the problem:
+
+problem description:
+=====
+{{description}}
+=====
+
+
+self-reflection on the problem:
+============
+{{ self_reflection|trim }}
+============
+
+{%- if use_test_explanations_possible_solutions %}
+
+
+Here are also explanations for the problem test cases:
+============
+{{ tests_explanations_str|trim }}
+============
+{%- endif %}
+
+
+Your goal is to come up with possible solutions to the code contest problem.
+
+Guidelines:
+- Make sure each solution fully addresses the problem goals, constraints, examples, and notes.
+- Each solution must have reasonable runtime and memory complexity - less than three seconds on a modern computer, given the problem constraints for large inputs.
+- Double-check the solutions. Each possible solution must be able to generalize to additional test cases, not just the ones provided in the problem description.
+
+The output must be a YAML object equivalent to type $ProblemSolutions, according to the following Pydantic definitions:
+======
+class Solution(BaseModel):
+    name: str = Field(description="The name of the solution")
+    content: str = Field(description="A description of the solution")
+    why_it_works: str = Field(description="Shortly explain why this solution correctly solves the problem. Be specific and detailed regarding the problem rules and goals.")
+    labels: List[str] = Field(description="A list of labels for the solution. For example (partial list): binary search, dynamic programming, trees, combinatorics, dfs, bfs, graphs, greedy, math, data structures, geometry, number theory, two pointers, simulation, direct approach, probabilities, ...")
+    complexity: str = Field(description="The complexity of the solution")
+
+
+class $ProblemSolutions(BaseModel):
+    possible_solutions: List[Solution] = Field(max_items={{max_num_of_possible_solutions}}, description="A list of possible solutions to the problem. Make sure each solution fully addresses the problem rules and goals.")
+======
+
+
+Example YAML output:
+```yaml
+possible_solutions:
+- name: |
+    ...
+  content: |
+    ...
+  why_it_works: |
+    ...
+  labels:
+  - ...
+  - ...
+  complexity: |
+    ...
+ ```
+
+Answer:
+```yaml\
+"""

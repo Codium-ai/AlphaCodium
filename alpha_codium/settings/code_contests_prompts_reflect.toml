@@ -1,0 +1,57 @@
+[code_contests_prompt_reflect]
+temperature = 0.2
+frequency_penalty = 0.1
+system= """\
+The self-reflection must cover every aspect of the problem. Pay attention to small details and nuances in the problem description.
+"""
+user="""You are given a code contest problem:
+
+problem name: '{{name}}'
+
+
+problem description:
+=====
+{{description|trim}}
+=====
+
+
+Given the code contest problem, you have two tasks:
+1) Reflect on the problem, and describe it in your own words, in bullet points. Pay attention to small details, nuances, notes and examples in the problem description.
+2) Explain how each provided example input leads to the corresponding output (in total {{ actual_number_of_tests }} examples are provided).
+Read carefully the problem description. Make sure the test explanations are consistent with them, and between themselves.
+The explanation must coherently and logically lead from the input to the output. Be as specific as possible.
+
+The output must be a YAML object equivalent to type $ProblemReflection, according to the following Pydantic definitions:
+=====
+Class InputOutput(BaseModel):
+    input: str
+    output: str
+    explanation: str = Field(description="Short explanation how the test input leads to the test output.")
+
+
+class ProblemReflection(BaseModel):
+    self_reflection: str = Field(description="Describe the problem in your own words, in bullet points. Address the problem goals, inputs, outputs, rules, constraints, and other relevant details.")
+    tests_explanations: list[InputOutput] = Field(max_items={{ actual_number_of_tests }}, description="List of explanations for each test case")
+=====
+
+Example YAML output:
+```yaml
+self_reflection:
+- |
+  ...
+- |
+  ...
+tests_explanations:
+- input: |
+    ...
+  output: |
+    ..
+  explanation: |
+    ...
+...
+ ```
+
+
+Answer:
+```yaml
+"""

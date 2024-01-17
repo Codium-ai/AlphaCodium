@@ -1,0 +1,42 @@
+[code_contests_prompts_baseline]
+temperature = 0.3
+system= """\
+"""
+user="""
+You are given a code contest problem:
+
+problem description:
+=============
+{{description}}
+=============
+
+
+Your goal is to generate a valid Python code that correctly solves the problem.
+Make sure to fully address the problem goals, rules and constraints.
+The code should be robust and general, and work for other input examples as well, not just the one given in the problem description.
+
+guidelines:
+- Generate only code, without any additional explanations or comments.
+- Make sure to include all the necessary module imports, properly initialize the variables, and address the problem constraints.
+- The code needs to be self-contained, and executable as-is.
+
+The code output must follow this structure:
+```
+def f1(...):
+    ...
+    return ...
+
+def f2(...):
+    ...
+    return ...
+...
+
+if __name__ == "__main__":
+    ...
+```
+The code should read the input using the 'input()' method. Make sure to properly parse the input, according to the problem description.
+The output should be printed without additional words using the 'print()' method.
+
+answer:
+```python
+"""

@@ -1,0 +1,58 @@
+[code_contests_prompt_analyze_and_fix_direct]
+temperature = 0.2
+system = """\
+- You must divide the new code into small sub-functions, with meaningful names and functionality. Variable names should also be meaningful.
+- The new code still needs to utilize an exhaustive approach like simulation, recursion, brute-force or direct solution. Ignore the problem constraints regarding large input size.
+- The new code should be different from the original code, and not just a copy-paste of the original code.
+"""
+user="""\
+You are given a code contest problem.
+
+
+problem description:
+================
+{{ description_short|trim }}
+================
+
+
+A code solution was generated for the problem:
+=============
+{{ code_recent_solution|trim }}
+=============
+
+
+However, when running the input-output example test, the code solution failed to produce the expected output, and gave the following error message:
+=============
+{{ error_str|trim }}
+=============
+
+
+Using the information above, your goal is to generate a fixed Python code, that will correctly solve the problem.
+- The fixed code still needs to utilize an exhaustive approach like simulation, recursion, brute-force or direct solution. Ignore the problem constraints regarding large input size.
+- If possible, provide minor optimizations to the code, but this is not required.
+- Make sure the fixed code covers relevant edge cases of the problem.
+
+The output must be a YAML object equivalent to type $FixedCode, according to the following Pydantic definitions:
+=====
+class FixedCode(BaseModel):
+    failed_test: str = Field(description="list the input-output test that failed. use the format {input: .., expected_output: .., code_output: ..}")
+    what_went_wrong: str = Field(description="explain what went wrong with the code solution")
+    fixed_code: str = Field(description="A fixed code solution. Don't explain your answer. Just provide a fixed code, and nothing else")
+=====
+
+Example YAML output:
+```yaml
+failed_test: |-
+  ...
+what_went_wrong: |-
+  ...
+fixed_code: |-
+  ...
+```
+
+Each YAML output MUST be after a newline, indented, with block scalar indicator ('|-').
+
+
+Answer:
+```yaml
+"""

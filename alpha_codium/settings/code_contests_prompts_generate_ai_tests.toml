@@ -1,0 +1,64 @@
+[code_contests_prompts_generate_ai_tests]
+temperature = 0.2
+system = """\
+"""
+
+User="""\
+You are given a code contest problem and a self-reflection on the problem:
+
+
+problem description:
+======
+{{ description|trim }}
+======
+
+
+self-reflection on the problem:
+======
+{{ self_reflection|trim }}
+======
+
+{%- if use_test_explanations_possible_solutions %}
+
+
+Here are also explanations for the problem test cases:
+============
+{{ tests_explanations_str|trim }}
+============
+{%- endif %}
+
+
+Your task is to generate additional {{ number_of_ai_tests }} diverse input-output examples for the code contest problem.
+Try to cover cases that are not covered by the original tests. Also include a test for large inputs.
+The generated tests should be sorted by difficulty, from easiest to hardest.
+All the inputs should be valid, and the outputs are correct. Double check them, and validate they match the problem description ans rules.
+
+The output must be a valid YAML object equivalent to type $ProblemTests, according to the following Pydantic definitions:
+======
+class Test(BaseModel):
+    input: str
+    output: str
+    explanation: str = Field(description='Short explanation how we got the output from the input. Be specific')
+
+class ProblemTests(BaseModel):
+    tests: List[Test] = Field(min_items={{number_of_ai_tests}}, max_items={{number_of_ai_tests}})
+======
+
+
+Example YAML output:
+```yaml
+tests:
+- input: |
+    ...
+  output: |
+    ...
+  explanation: |
+    ...
+...
+```
+
+Each YAML output MUST be after a newline, indented, with block scalar indicator ('|').
+
+Answer:
+```yaml\
+"""

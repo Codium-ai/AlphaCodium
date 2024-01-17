@@ -1,0 +1,57 @@
+[code_contests_prompts_solve_direct]
+temperature = 0.3
+system= """\
+- You must divide the generated code into small sub-functions, with meaningful names and functionality. Each function should be no longer than 10 lines of code.
+- The code should ignore the problem constraints for large inputs.
+"""
+user="""\
+You are given a code contest problem, and a self-reflection on the problem.
+
+
+problem description:
+=============
+{{ description|trim }}
+=============
+
+
+self-reflection on the problem:
+======
+{{ self_reflection|trim }}
+======
+
+
+Your goal is to generate a valid Python code that correctly solves the code contest problem, using the following algorithm:
+=============
+{{ s_best_solution|trim }}
+=============
+
+
+
+Guidelines:
+- You must divide the generated code into small sub-functions, with meaningful names and functionality. Variables names should also be meaningful.
+- Double-check the solution code. Make sure to include all the necessary module imports, properly initialize the variables, and address the problem constraints.
+- The code needs to be self-contained, and executable as-is. Output only code, without any explanations or comments.
+
+
+
+The code output must follow this structure:
+```
+def f1(...):
+    ...
+    return ...
+
+def f2(...):
+    ...
+    return ...
+...
+
+if __name__ == "__main__":
+    ...
+```
+The code should read the input using the 'input()' method. Make sure to properly parse the input, according to the problem description.
+The output should be printed without additional words using the 'print()' method.
+
+
+Answer:
+```python
+"""

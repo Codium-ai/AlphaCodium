@@ -1,0 +1,63 @@
+[config]
+model="gpt-4"
+#model = "gpt-3.5-turbo-16k"
+ai_timeout=90 # seconds
+fallback_models =[]
+verbosity_level=0 # 0,1,2
+private_dataset_cache_dir="~/.cache/huggingface/datasets/alpha_codium"
+max_requests_per_minute=60
+
+
+[dataset]
+evaluate_prev_solutions=false
+num_iterations=1 # X iterations to try to solve the problem
+use_iteration_scheme=true
+
+[solve]
+reduce_verbose = false
+use_baseline = false
+use_direct_solutions=false
+
+[self_reflection]
+validate_self_reflection=false
+
+[possible_solutions]
+max_num_of_possible_solutions=3
+use_test_explanations=true
+remove_bruce_force_solutions=true
+
+[generate_ai_tests]
+validate_ai_tests=false
+number_of_ai_tests=6
+use_test_explanations=true
+add_public_tests_to_ai_tests=true
+
+[initial_code_generation]
+max_attempts=8
+
+[public_tests]
+max_allowed_calls=4
+max_fixes_per_test=3
+use_test_explanations=false
+single_stage_fix=true
+use_self_reflection=false
+
+[ai_tests]
+max_allowed_calls=4
+
+[code_tester]
+tester_type="local" # local, code_contests
+order_matters=true
+sandbox=true
+delta=0.0001
+# trace
+calc_trace=false
+use_trace=false
+max_trace_lines=50
+trace_depth=4
+
+[code_contests_tester]
+stop_on_first_failure = false
+timeout = 3
+path_to_python_bin = "/usr/bin/python3.9"
+path_to_python_lib = ["/usr/lib", "/usr/lib/python3.9"]
