@@ -109,7 +109,7 @@ Secondly, many of the design concepts, principles, and tricks we acquired in thi
 - **Soft decisions with double validation**: with a double validation process, we add an extra step where, given the generated output, the model is asked to re-generate the same output, but correct it if needed
 - **Leave room for exploration**: since the model can be wrong, it’s better to avoid irreversible decisions, and leave room for exploration and code iterations with different possible solutions
 
-The list above is partial. See the [paper](https://arxiv.org/abs/2401.08500) for more details. The code provided [in this repo](./settings) can be used as a reference for better understanding the proposed concepts, and for applying them to other code generation tasks.
+The list above is partial. See the [paper](https://arxiv.org/abs/2401.08500) for more details. The code provided [in this repo](./alpha_codium/settings) can be used as a reference for better understanding the proposed concepts, and for applying them to other code generation tasks.
 
 ## Acknowledgments
 Our process CodeContests dataset is based on the original [CodeContests](https://huggingface.co/datasets/deepmind/code_contests) dataset.
