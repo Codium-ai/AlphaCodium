@@ -97,6 +97,34 @@ python -m alpha_codium.evaluate_dataset\
 --database_solution_path /path/to/output/dir/dataset_output.json
 ```
 
+## Technical Q&A
+Aggregating some technical questions we received about this project:
+___
+**Q: How much time did you spend on "prompt engineering" compared to "flow engineering"?**<br><br>
+**A:** Structured output almost completely eliminates the need for simple prompt engineering.
+We estimate that ~95% of the time we did more high-level design, reasoning, injecting data at the correct places, ..., a.k.a. "flow engineering".
+___
+
+**Q: How do you know that there wasn't a data leakage ?** <br><br>
+**A:** The test set of CodeContests dataset comprises from problems published after September 2021, while the GPT-4 model variant we used (gpt-4-0613) has a data cutoff of September 2021. Hence, there is no data leakage for GPT4, on the test set.
+For other models like DeepSeek, we cannot be sure. However, note that our [main result](./pics/comparison.png) is a comparison of "direct prompt" vs. "AlphaCodium flow". Data leakage would help both approaches, so the relative improvement of AlphaCodium flow is still valid.
+___
+
+**Q: Is this project relevant only to specific programming languages?**<br><br>
+**A:** No. The proposed flow is language agnostic. We generated solutions in Python, but the flow can be applied to any language.
+___
+
+**Q: How did you manage the context window?** <br><br>
+**A:** We used models with a context window of 8192 tokens, and we did not encounter cases where it did not suffice.
+However, we clearly observed that as the context we used grow larger, the model starts to "forget" of "ignore" some of the information in the context. Hence, there is a clear tradeoff:
+- Injecting the results of previous stages into the context, may help the model to generate better code.
+- However, it may also cause the model to ignore specific details and nuances from the problem description.
+___
+
+**Q: Is this work "realistic" in terms of the number of LLM calls?** <br><br>
+**A:** In comparison to AlphaCode, we do four orders of magnitude (!) fewer [calls](./pics/computational_effort.png) (per solution AlphaCodium does 15-20 calls).
+Yet we acknowledge that for some applications, this may still be too much, and more optimizations are needed. Yet we believe that many of the ideas and principles we acquired in this work are broadly applicable, even when the number of calls is further limited.
+
 ## Broader Applicability
 While this work presents results on CodeContests dataset, we believe that it has a broader applicability.
 
