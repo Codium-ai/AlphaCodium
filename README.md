@@ -6,7 +6,16 @@
 Official Implementation
 > Tal Ridnik, Dedy Kredo, Itamar Friedman <br/> CodiumAI
 
-**Abstract**
+## Table of Contents
+- [Abstract](#abstract)
+- [Installation](#installation)
+- [How to run](#how-to-run)
+- [Technical Q&A](#technical-qa)
+- [Broader Applicability](#broader-applicability)
+- [Acknowledgments](#acknowledgments)
+- [Citation](#citation)
+
+## Abstract
 
 Code generation problems differ from common natural language problems - they require matching the exact syntax of the target language, identifying happy paths and edge cases, paying attention to numerous small details in the problem spec, and addressing other code-specific issues and requirements. Hence, many of the optimizations and tricks that have been successful in natural language generation may not be effective for code tasks.
 
@@ -116,14 +125,14 @@ ___
 
 **Q: How did you manage the context window?** <br><br>
 **A:** We used models with a context window of 8192 tokens, and we did not encounter cases where it did not suffice.
-However, we clearly observed that as the context we used grow larger, the model starts to "forget" of "ignore" some of the information in the context. Hence, there is a clear tradeoff:
+However, we clearly observed that as the context we used in practice grow larger (let's say, above 4000 tokens), the model starts to "ignore" some of the information in the context. Hence, there is a clear tradeoff:
 - Injecting the results of previous stages into the context, may help the model to generate better code.
 - However, it may also cause the model to ignore specific details and nuances from the problem description.
 ___
 
 **Q: Is this work "realistic" in terms of the number of LLM calls?** <br><br>
 **A:** In comparison to AlphaCode, we do four orders of magnitude (!) fewer [calls](./pics/computational_effort.png) (per solution AlphaCodium does 15-20 calls).
-Yet we acknowledge that for some applications, this may still be too much, and more optimizations are needed. Yet we believe that many of the ideas and principles we acquired in this work are broadly applicable, even when the number of calls is further limited.
+Yet we acknowledge that for some applications, this may still be too much, and more optimizations are needed. We however believe that many of the ideas and principles we acquired in this work are broadly applicable, even when the number of calls is further limited.
 
 ## Broader Applicability
 While this work presents results on CodeContests dataset, we believe that it has a broader applicability.
