@@ -6,7 +6,16 @@
 Official Implementation
 > Tal Ridnik, Dedy Kredo, Itamar Friedman <br/> CodiumAI
 
-**Abstract**
+## Table of Contents
+- [Abstract](#abstract)
+- [Installation](#installation)
+- [How to run](#how-to-run)
+- [Technical Q&A](#technical-q-a)
+- [Broader Applicability](#broader-applicability)
+- [Acknowledgments](#acknowledgments)
+- [Citation](#citation)
+
+## Abstract
 
 Code generation problems differ from common natural language problems - they require matching the exact syntax of the target language, identifying happy paths and edge cases, paying attention to numerous small details in the problem spec, and addressing other code-specific issues and requirements. Hence, many of the optimizations and tricks that have been successful in natural language generation may not be effective for code tasks.
 
