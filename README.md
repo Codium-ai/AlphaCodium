@@ -125,7 +125,7 @@ ___
 
 **Q: How did you manage the context window?** <br><br>
 **A:** We used models with a context window of 8192 tokens, and we did not encounter cases where it did not suffice.
-However, we clearly observed that as the context we used grow larger, the model starts to "forget" of "ignore" some of the information in the context. Hence, there is a clear tradeoff:
+However, we clearly observed that as the context we used in practice grow larger (let's say, above 4000 tokens), the model starts to "ignore" some of the information in the context. Hence, there is a clear tradeoff:
 - Injecting the results of previous stages into the context, may help the model to generate better code.
 - However, it may also cause the model to ignore specific details and nuances from the problem description.
 ___
