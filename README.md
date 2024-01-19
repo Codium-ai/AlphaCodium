@@ -10,7 +10,7 @@ Official Implementation
 - [Abstract](#abstract)
 - [Installation](#installation)
 - [How to run](#how-to-run)
-- [Technical Q&A](#technical-q-a)
+- [Technical Q&A](#technical-qa)
 - [Broader Applicability](#broader-applicability)
 - [Acknowledgments](#acknowledgments)
 - [Citation](#citation)
@@ -132,7 +132,7 @@ ___
 
 **Q: Is this work "realistic" in terms of the number of LLM calls?** <br><br>
 **A:** In comparison to AlphaCode, we do four orders of magnitude (!) fewer [calls](./pics/computational_effort.png) (per solution AlphaCodium does 15-20 calls).
-Yet we acknowledge that for some applications, this may still be too much, and more optimizations are needed. Yet we believe that many of the ideas and principles we acquired in this work are broadly applicable, even when the number of calls is further limited.
+Yet we acknowledge that for some applications, this may still be too much, and more optimizations are needed. We however believe that many of the ideas and principles we acquired in this work are broadly applicable, even when the number of calls is further limited.
 
 ## Broader Applicability
 While this work presents results on CodeContests dataset, we believe that it has a broader applicability.
