@@ -56,7 +56,7 @@ python -m alpha_codium.solve_problem \
 --problem_number 0
 ```
 - The `dataset_name` is the path to the dataset folder you downloaded in the installation step.
-- Note that the validation set contain 117 problems, and the test set contain 165 problems, so the `problem_number` parameter should be accordingly (zero-based)
+- Note that the validation set contains 117 problems, and the test set contains 165 problems, so the `problem_number` parameter should be accordingly (zero-based)
 - The `split_name` can be either `valid` or `test`.
 - The followings sections in the configuration file: 
 `solve`, `self_reflection`,`possible_solutions`,`generate_ai_tests`,`initial_code_generation`,`public_tests`, `ai_tests`  
