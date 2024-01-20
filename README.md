@@ -133,6 +133,11 @@ ___
 **Q: Is this work "realistic" in terms of the number of LLM calls?** <br><br>
 **A:** In comparison to AlphaCode, we do four orders of magnitude (!) fewer [calls](./pics/computational_effort.png) (per solution AlphaCodium does 15-20 calls).
 Yet we acknowledge that for some applications, this may still be too much, and more optimizations are needed. We however believe that many of the ideas and principles we acquired in this work are broadly applicable, even when the number of calls is further limited.
+___
+**Q: Why do you iterate only on the generate code, and not on the AI-generated tests?** <br><br>
+**A:** For code problems in CodeContests, the tests are a list of input-output pairs. Hence, you don't really learn anything new when you "fix" a test - you just change its output to the prediction of the generated code. Instead of fixing tests, we prefered to always try and fix the code, while using "test anchors". (see the [paper](https://arxiv.org/abs/2401.08500) for more details).
+However, for other code generation tasks, where the tests are more complex and actually contain runnable code, iterating on the tests, in addition to iterating on the generated code, may be beneficial.
+
 
 ## Broader Applicability
 While this work presents results on CodeContests dataset, we believe that it has a broader applicability.
