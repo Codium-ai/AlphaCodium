@@ -125,7 +125,7 @@ ___
 
 **Q: How did you manage the context window?** <br><br>
 **A:** We used models with a context window of 8192 tokens, and we did not encounter cases where it did not suffice.
-However, we clearly observed that as the context we used in practice grow larger (let's say, above 4000 tokens), the model starts to "ignore" some of the information in the context. Hence, there is a clear tradeoff:
+However, we clearly observed that as the context we used in practice grows larger (let's say, above 4000 tokens), the model starts to "ignore" some of the information in the context. Hence, there is a clear tradeoff:
 - Injecting the results of previous stages into the context, may help the model to generate better code.
 - However, it may also cause the model to ignore specific details and nuances from the problem description.
 ___
@@ -134,8 +134,8 @@ ___
 **A:** In comparison to AlphaCode, we do four orders of magnitude (!) fewer [calls](./pics/computational_effort.png) (per solution AlphaCodium does 15-20 calls).
 Yet we acknowledge that for some applications, this may still be too much, and more optimizations are needed. We however believe that many of the ideas and principles we acquired in this work are broadly applicable, even when the number of calls is further limited.
 ___
-**Q: Why do you iterate only on the generate code, and not on the AI-generated tests?** <br><br>
-**A:** For code problems in CodeContests, the tests are a list of input-output pairs. Hence, you don't really learn anything new when you "fix" a test - you just change its output to the prediction of the generated code. Instead of fixing tests, we prefered to always try and fix the code, while using "test anchors". (see the [paper](https://arxiv.org/abs/2401.08500) for more details).
+**Q: Why do you iterate only on the generated code, and not on the AI-generated tests?** <br><br>
+**A:** For code problems in CodeContests, the tests are a list of input-output pairs. Hence, you don't really learn anything new when you "fix" a test - you just change its output to the prediction of the generated code. Instead of fixing tests, we preferred to always try and fix the code, while using "test anchors". (see the [paper](https://arxiv.org/abs/2401.08500) for more details).
 However, for other code generation tasks, where the tests are more complex and actually contain runnable code, iterating on the tests, in addition to iterating on the generated code, may be beneficial.
 
 
@@ -146,7 +146,7 @@ First and foremost, we feel that the proposed AlphaCodium [flow](./pics/proposed
 
 Secondly, many of the design concepts, principles, and tricks we acquired in this work are broadly applicable as-is to any general code generation tasks. For example:
 - **YAML Structured output**: asking the model to generate an output in YAML format, equivalent to a given Pydantic class
-- **Semantic reasoning via bullet points analysis**: bullet points analysis encourage an in-depth understanding of the problem, and force the model to divide the output into logical semantic sections, leading to improved results
+- **Semantic reasoning via bullet points analysis**: bullet points analysis encourages an in-depth understanding of the problem, and force the model to divide the output into logical semantic sections, leading to improved results
 - **LLMs do better when generating a modular code**: when clearly asking the model to: `divide the generated code into small sub-functions, with meaningful names and functionality`, we observe a better-produced code, with fewer bugs, and higher success rates for the iterative fixing stages.
 - **Soft decisions with double validation**: with a double validation process, we add an extra step where, given the generated output, the model is asked to re-generate the same output, but correct it if needed
 - **Leave room for exploration**: since the model can be wrong, it’s better to avoid irreversible decisions, and leave room for exploration and code iterations with different possible solutions
