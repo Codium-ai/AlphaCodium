@@ -31,7 +31,7 @@ Here are also explanations for the problem test cases:
 Your task is to generate additional {{ number_of_ai_tests }} diverse input-output examples for the code contest problem.
 Try to cover cases that are not covered by the original tests. Also include a test for large inputs.
 The generated tests should be sorted by difficulty, from easiest to hardest.
-All the inputs should be valid, and the outputs are correct. Double check them, and validate they match the problem description ans rules.
+All the inputs should be valid, and the outputs are correct. Double check them, and validate they match the problem description and rules.
 
 The output must be a valid YAML object equivalent to type $ProblemTests, according to the following Pydantic definitions:
 ======
