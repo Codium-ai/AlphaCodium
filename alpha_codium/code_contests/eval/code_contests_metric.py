@@ -44,7 +44,7 @@ Args:
     references: a list with a test for each prediction. Each test should evaluate the
         correctness of a code candidate.
     k: number of code candidates to consider in the evaluation (Default: [1, 10, 100])
-    num_workers: number of workers used to evaluate the canidate programs (Default: 4).
+    num_workers: number of workers used to evaluate the candidate programs (Default: 4).
     timeout:
 Returns:
     pass_at_k: dict with pass rates for each k
@@ -199,7 +199,11 @@ def estimate_pass_at_k(num_samples, num_correct, k):
         """Calculates 1 - comb(n - c, k) / comb(n, k)."""
         if n - c < k:
             return 1.0
-        return 1.0 - np.prod(1.0 - k / np.arange(n - c + 1, n + 1))
+        denominator = np.math.factorial(n) / (np.math.factorial(k) * np.math.factorial(n - k))
+        numerator = 1.0
+        for i in range(n - c + 1, n + 1):
+            numerator *= 1.0 - k / i
+        return 1.0 - numerator / denominator
 
     if isinstance(num_samples, int):
         num_samples_it = itertools.repeat(num_samples, len(num_correct))
