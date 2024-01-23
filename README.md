@@ -12,6 +12,7 @@ Official Implementation
 - [How to run](#how-to-run)
 - [Technical Q&A](#technical-qa)
 - [Broader Applicability](#broader-applicability)
+- [Example Problem](#example-problem)
 - [Acknowledgments](#acknowledgments)
 - [Citation](#citation)
 
@@ -155,7 +156,7 @@ The list above is partial. See the [paper](https://arxiv.org/abs/2401.08500) for
 
 
 ## Example Problem
-In this section, we present an example problem from the CodeContests dataset (test-set, problem 1), in order to demonstrate the complexity of the problems in the dataset, and the challenges they pose to LLMs.
+In this section, we present an example for a full problem from the CodeContests dataset (test-set, problem 1), in order to demonstrate the complexity of the problems in the dataset, and the challenges they pose to LLMs.
 
 ```
 problem name: '1575_B. Building an Amusement Park'
