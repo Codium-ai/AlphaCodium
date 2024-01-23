@@ -115,7 +115,7 @@ We estimate that ~95% of the time we did more high-level design, reasoning, and 
 ___
 
 **Q: How do you know that there wasn't a data leakage?** <br><br>
-**A:** The test set of the CodeContests dataset comprises problems published after September 2021, while the GPT-4 model variant we used (gpt-4-0613) has a data cutoff of September 2021. Hence, there is no data leakage for GPT4, on the test set.
+**A:** The test set of CodeContests dataset comprises problems published after September 2021, while the GPT-4 model variant we used (gpt-4-0613) has a data cutoff of September 2021. Hence, there is no data leakage for GPT4, on the test set.
 For other models like DeepSeek, we cannot be sure. However, note that our [main result](./pics/comparison.png) is a comparison of "direct prompt" vs. "AlphaCodium flow". Data leakage would help both approaches, so the relative improvement of AlphaCodium flow is still valid.
 ___
 
@@ -140,7 +140,7 @@ However, for other code generation tasks, where the tests are more complex and c
 
 
 ## Broader Applicability
-While this work presents results on the CodeContests dataset, we believe that it has a broader applicability.
+While this work presents results on CodeContests dataset, we believe that it has a broader applicability.
 
 First and foremost, we feel that the proposed AlphaCodium [flow](./pics/proposed_flow.png), with reasonable adjustments, can be used as a more general framework for other code generation tasks.
 
