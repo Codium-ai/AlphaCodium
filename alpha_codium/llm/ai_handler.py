@@ -31,8 +31,9 @@ class AiHandler:
         """
         self.limiter = AsyncLimiter(get_settings().config.max_requests_per_minute)
         try:
-            openai.api_key = get_settings().openai.key
-            litellm.openai_key = get_settings().openai.key
+            if "gpt" in get_settings().get("config.model").lower():
+                openai.api_key = get_settings().openai.key
+                litellm.openai_key = get_settings().openai.key
             self.azure = False
             if "deepseek" in get_settings().get("config.model"):
                 litellm.register_prompt_template(
