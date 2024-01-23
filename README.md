@@ -42,7 +42,7 @@ Many of the principles and best practices we acquired in this work, we believe, 
 
 (1) setup a virtual environment and run: `pip install -r requirements.txt`
 
-(2) Duplicate the file `alpha_codium/settings/.secrets_template.toml`, rename it as `.secrets.toml`, and fill your openai api key:
+(2) Duplicate the file `alpha_codium/settings/.secrets_template.toml`, rename it as `.secrets.toml`, and fill in your OpenAI API key:
 ```
 [openai]
 key = "..."
@@ -67,7 +67,7 @@ python -m alpha_codium.solve_problem \
 - The `dataset_name` is the path to the dataset folder you downloaded in the installation step.
 - Note that the validation set contains 117 problems, and the test set contains 165 problems, so the `problem_number` parameter should be accordingly (zero-based)
 - The `split_name` can be either `valid` or `test`.
-- The followings sections in the configuration file: 
+- The following sections in the configuration file: 
 `solve`, `self_reflection`,`possible_solutions`,`generate_ai_tests`,`initial_code_generation`,`public_tests`, `ai_tests`  
 enable to adjust possible configurations for the different stages of the flow.
 - Each run logs the results to a file named `alpha_codium/example.log`. Reviewing the log file is a good way to understand what is going on in each stage of the flow.
@@ -92,9 +92,9 @@ python -m alpha_codium.solve_dataset \
 
 - The `split_name` can be either `valid` or `test`.
 - `database_solution_path` is the path to the directory where the solutions will be saved.
-- The `dataset` section in the configuration file contains the configuration for the running and evaluation a dataset.
+- The `dataset` section in the configuration file contains the configuration for the running and evaluation of a dataset.
 - Note that this is a long process, and it may take a few days to complete with large models (e.g. GPT-4) and several iterations per problem. 
-- `dataset.num_iterations` defines the number of iterations for each problem (pass@K). For large number of iterations, it is recommended to introduce some randomness and different options for each iteration to achieve top results.
+- `dataset.num_iterations` defines the number of iterations for each problem (pass@K). For a large number of iterations, it is recommended to introduce some randomness and different options for each iteration to achieve top results.
 
 ### Running the evaluation
 
@@ -111,11 +111,11 @@ Aggregating some technical questions we received about this project:
 ___
 **Q: How much time did you spend on "prompt engineering" compared to "flow engineering"?**<br><br>
 **A:** Structured output almost completely eliminates the need for simple prompt engineering.
-We estimate that ~95% of the time we did more high-level design, reasoning, injecting data at the correct places, ..., a.k.a. "flow engineering".
+We estimate that ~95% of the time we did more high-level design, reasoning, and injecting data at the correct places, ..., a.k.a. "flow engineering".
 ___
 
-**Q: How do you know that there wasn't a data leakage ?** <br><br>
-**A:** The test set of CodeContests dataset comprises from problems published after September 2021, while the GPT-4 model variant we used (gpt-4-0613) has a data cutoff of September 2021. Hence, there is no data leakage for GPT4, on the test set.
+**Q: How do you know that there wasn't a data leakage?** <br><br>
+**A:** The test set of the CodeContests dataset comprises problems published after September 2021, while the GPT-4 model variant we used (gpt-4-0613) has a data cutoff of September 2021. Hence, there is no data leakage for GPT4, on the test set.
 For other models like DeepSeek, we cannot be sure. However, note that our [main result](./pics/comparison.png) is a comparison of "direct prompt" vs. "AlphaCodium flow". Data leakage would help both approaches, so the relative improvement of AlphaCodium flow is still valid.
 ___
 
@@ -136,18 +136,18 @@ Yet we acknowledge that for some applications, this may still be too much, and m
 ___
 **Q: Why do you iterate only on the generated code, and not on the AI-generated tests?** <br><br>
 **A:** For code problems in CodeContests, the tests are a list of input-output pairs. Hence, you don't really learn anything new when you "fix" a test - you just change its output to the prediction of the generated code. Instead of fixing tests, we preferred to always try and fix the code, while using "test anchors". (see the [paper](https://arxiv.org/abs/2401.08500) for more details).
-However, for other code generation tasks, where the tests are more complex and actually contain runnable code, iterating on the tests, in addition to iterating on the generated code, may be beneficial.
+However, for other code generation tasks, where the tests are more complex and contain runnable code, iterating on the tests, in addition to iterating on the generated code, may be beneficial.
 
 
 ## Broader Applicability
-While this work presents results on CodeContests dataset, we believe that it has a broader applicability.
+While this work presents results on the CodeContests dataset, we believe that it has a broader applicability.
 
 First and foremost, we feel that the proposed AlphaCodium [flow](./pics/proposed_flow.png), with reasonable adjustments, can be used as a more general framework for other code generation tasks.
 
 Secondly, many of the design concepts, principles, and tricks we acquired in this work are broadly applicable as-is to any general code generation tasks. For example:
 - **YAML Structured output**: asking the model to generate an output in YAML format, equivalent to a given Pydantic class
-- **Semantic reasoning via bullet points analysis**: bullet points analysis encourages an in-depth understanding of the problem, and force the model to divide the output into logical semantic sections, leading to improved results
-- **LLMs do better when generating a modular code**: when clearly asking the model to: `divide the generated code into small sub-functions, with meaningful names and functionality`, we observe a better-produced code, with fewer bugs, and higher success rates for the iterative fixing stages.
+- **Semantic reasoning via bullet points analysis**: Bullet points analysis encourages an in-depth understanding of the problem, and forces the model to divide the output into logical semantic sections, leading to improved results
+- **LLMs do better when generating a modular code**: when asking the model to: `divide the generated code into small sub-functions, with meaningful names and functionality`, we observe a better-produced code, with fewer bugs, and higher success rates for the iterative fixing stages.
 - **Soft decisions with double validation**: with a double validation process, we add an extra step where, given the generated output, the model is asked to re-generate the same output, but correct it if needed
 - **Leave room for exploration**: since the model can be wrong, it’s better to avoid irreversible decisions, and leave room for exploration and code iterations with different possible solutions
 
@@ -155,7 +155,7 @@ The list above is partial. See the [paper](https://arxiv.org/abs/2401.08500) for
 
 ## Acknowledgments
 Our process CodeContests dataset is based on the original [CodeContests](https://huggingface.co/datasets/deepmind/code_contests) dataset.
-We removed the train set (which is not relevant for our work), and did some post-processing and cleaning to the validation and test sets.
+We removed the train set (which is not relevant to our work) and did some post-processing and cleaning to the validation and test sets.
 
 
 ## Citation
