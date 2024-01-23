@@ -27,15 +27,15 @@ On the validation set, for example, GPT-4 accuracy (pass@5) increased from 19% w
 
 Many of the principles and best practices we acquired in this work, we believe, are broadly applicable to general code generation tasks.
 
-<p align="center">
+<p>
  <table class="tg">
   <tr>
-    <td class="tg-c3ow"><img src="./pics/proposed_flow.png" align="center" width="600""></td>
+    <td class="tg-c3ow"><img src="./pics/proposed_flow.png" align="center" width="600" ></td>
 <tr>
     <td class="tg-c3ow"><img src="./pics/iterations.png" align="center" width="600" ></td>
 
   </tr>
-</table>
+ </table>
 </p>
 
 
@@ -156,40 +156,40 @@ The list above is partial. See the [paper](https://arxiv.org/abs/2401.08500) for
 
 
 ## Example Problem
-In this section, we present an example for a full problem from the CodeContests dataset (test-set, problem 1), in order to demonstrate the complexity of the problems in the dataset, and the challenges they pose to LLMs.
+In this section, we present an example for a full problem from CodeContests dataset (test-set, problem 1), in order to demonstrate the complexity of the problems in the dataset, and the challenges they pose to LLMs.
 
 ```
 problem name: '1575_B. Building an Amusement Park'
 
 problem description:
-Mr. Chanek lives in a city represented as a plane. He wants to build an amusement park in the shape of a circle of radius r. The circle must touch the origin (point (0, 0)).
-
+Mr. Chanek lives in a city represented as a plane. He wants to build an amusement park in the shape of a circle of radius r. 
+The circle must touch the origin (point (0, 0)).
 There are n bird habitats that can be a photo spot for the tourists in the park. The i-th bird habitat is at point p_i = (x_i, y_i). 
 
 Find the minimum radius r of a park with at least k bird habitats inside. 
 
-A point is considered to be inside the park if and only if the distance between p_i and the center of the park is less than or equal to the radius of the park. Note that the center and the radius of the park do not need to be integers.
+A point is considered to be inside the park if and only if the distance between p_i and the center of the park is less than or equal 
+to the radius of the park.
+Note that the center and the radius of the park do not need to be integers.
 
 In this problem, it is guaranteed that the given input always has a solution with r ≤ 2 ⋅ 10^5.
 
 Input
 
-The first line contains two integers n and k (1 ≤ n ≤ 10^5, 1 ≤ k ≤ n) — the number of bird habitats in the city and the number of bird habitats required to be inside the park.
-
+The first line contains two integers n and k (1 ≤ n ≤ 10^5, 1 ≤ k ≤ n) — the number of bird habitats in the city and the number of bird 
+habitats required to be inside the park.
 The i-th of the next n lines contains two integers x_i and y_i (0 ≤ |x_i|, |y_i| ≤ 10^5) — the position of the i-th bird habitat.
 
 Output
 
-Output a single real number r denoting the minimum radius of a park with at least k bird habitats inside. It is guaranteed that the given input always has a solution with r ≤ 2 ⋅ 10^5.
-
+Output a single real number r denoting the minimum radius of a park with at least k bird habitats inside. It is guaranteed that the given 
+input always has a solution with r ≤ 2 ⋅ 10^5.
 Your answer is considered correct if its absolute or relative error does not exceed 10^{-4}.
-
 Formally, let your answer be a, and the jury's answer be b. Your answer is accepted if and only if \frac{|a - b|}{max{(1, |b|)}} ≤ 10^{-4}.
 
 Examples
 
 Input
-
 
 8 4
 -3 1
@@ -201,22 +201,18 @@ Input
 -1 -1
 -6 0
 
-
 Output
-
 
 3.1622776589
 
 
 Input
 
-
 1 1
 0 0
 
 
 Output
-
 
 0.0000000000
 
