@@ -1,0 +1,72 @@
+[code_contests_prompts_solve]
+temperature = 0.3
+system= """\
+- You must divide the generated code into small sub-functions, with meaningful names and functionality. Skip the body of functions.
+- Double-check the solution code. The generated solution must generalize to any valid input, and not just the provided examples.
+"""
+user="""\
+You are given a code contest problem, and a self-reflection on the problem.
+
+
+problem description:
+=============
+{{ description|trim }}
+=============
+
+
+self-reflection on the problem:
+======
+{{ self_reflection|trim }}
+======
+
+Your goal is to generate a valid Python implementation only for all functions and the global part according to the following algorithm and code structure:
+Algorithm:
+=============
+{{ s_best_solution|trim }}
+=============
+Code Structure:
+=============
+{{ code_structure|trim }}
+=============
+
+Guidelines:
+- Use  meaningful names for parameters and variables.
+- Double-check each function. It should implement the part of algorithm in its comments, and generalize to any valid parameters, and not just the provided examples.
+- Make sure to address the problem constraints.
+- Add necessary imports.
+- keep the comments intact.
+
+Your output should follow this structure:
+```
+import ...
+def f2(...):
+    """
+    part of algorithm
+    calls nothing
+    returns ...
+    """
+    ...
+    return ...
+
+def f1(...):
+    """
+    part of algorithm
+    calls f2()
+    returns ...
+    """
+    ...
+    return ...
+
+if __name__ == "__main__":
+    """
+    part of algorithm
+    calls f2()
+    """
+    ...
+```
+
+
+Answer:
+```python
+"""
+

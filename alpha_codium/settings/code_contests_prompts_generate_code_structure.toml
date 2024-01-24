@@ -1,0 +1,63 @@
+[code_contests_prompts_solve]
+temperature = 0.3
+system= """\
+- You must divide the generated code into small sub-functions, with meaningful names and functionality. Skip the body of functions.
+- Double-check the solution code. The generated solution must generalize to any valid input, and not just the provided examples.
+"""
+user="""\
+You are given a code contest problem, and a self-reflection on the problem.
+
+
+problem description:
+=============
+{{ description|trim }}
+=============
+
+
+self-reflection on the problem:
+======
+{{ self_reflection|trim }}
+======
+
+
+Your goal is to generate a valid Python code structure that would correctly solve the code contest problem, using the following algorithm:
+=============
+{{ s_best_solution|trim }}
+=============
+
+
+
+Guidelines:
+- You must divide the generated code into small sub-functions, with meaningful names, parameters and functionality.
+- Double-check the generated code strcture. It should generalize to any valid input, and not just the provided examples.
+- Skip the function bodies, just comment which part of algorithm it implements, which other generated functions it calls, and what it returns.
+- Make sure to address the problem constraints.
+- The code needs to be self-contained.
+
+
+
+Your output should follow this structure:
+```
+def f1(...):
+    """
+    part of algorithm
+    calls nothing
+    returns ...
+    """
+def f2(...):
+    part of algorithm
+    calls f1()
+    returns ...
+...
+
+if __name__ == "__main__":
+    """
+    part of algorithm
+    calls f2()
+    """
+```
+
+
+Answer:
+```python
+"""
