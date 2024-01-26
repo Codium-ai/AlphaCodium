@@ -26,6 +26,8 @@ async def run_self_reflect(self, problem):
             # inference
             response_reflect, _ = await send_inference(f)
             response_reflect = response_reflect.rstrip("` \n")
+            if response_reflect.startswith("```yaml"):
+                response_reflect = response_reflect[8:]
             try:
                 response_reflect_yaml = yaml.safe_load(response_reflect)
             except yaml.YAMLError:
