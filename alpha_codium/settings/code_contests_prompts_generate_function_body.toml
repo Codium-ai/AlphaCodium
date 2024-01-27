@@ -1,4 +1,4 @@
-[code_contests_prompts_solve]
+[code_contests_prompts_generate_function_body]
 temperature = 0.3
 system= """\
 - You must divide the generated code into small sub-functions, with meaningful names and functionality. Skip the body of functions.
@@ -19,7 +19,7 @@ self-reflection on the problem:
 {{ self_reflection|trim }}
 ======
 
-Your goal is to generate a valid Python implementation only for all functions and the global part according to the following algorithm and code structure:
+Your goal is to generate a valid Python implementation for all functions of the following code structure, according to the following algorithm:
 Algorithm:
 =============
 {{ s_best_solution|trim }}
@@ -34,35 +34,41 @@ Guidelines:
 - Double-check each function. It should implement the part of algorithm in its comments, and generalize to any valid parameters, and not just the provided examples.
 - Make sure to address the problem constraints.
 - Add necessary imports.
-- keep the comments intact.
+- Output should be a self-contained code.
+- Keep the code structure and the comments intact.
+
 
 Your output should follow this structure:
 ```
 import ...
 def f2(...):
-    """
+    '''
     part of algorithm
     calls nothing
     returns ...
-    """
+    '''
     ...
     return ...
 
 def f1(...):
-    """
+    '''
     part of algorithm
     calls f2()
     returns ...
-    """
+    '''
     ...
     return ...
+...
+
+def main():
+    '''
+    Main execution flow of the program.
+    Calls f2().
+    '''
+    ...
 
 if __name__ == "__main__":
-    """
-    part of algorithm
-    calls f2()
-    """
-    ...
+    main()
 ```
 
 

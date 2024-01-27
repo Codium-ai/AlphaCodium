@@ -27,11 +27,11 @@ def apply_logging_decorator_to_module(module):
             setattr(module, name, log_inputs_outputs_errors(obj))
 
 # Example usage
-import test  # Replace with the actual module name
+import optimal_insertion  # Replace with the actual module name
 
 # Apply the decorator to all functions in the module
-apply_logging_decorator_to_module(test)
+apply_logging_decorator_to_module(optimal_insertion)
 
 # Now, when you call functions from my_module, the decorator will log inputs, outputs, and errors
 
-test.main()
+optimal_insertion.main()
