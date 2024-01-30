@@ -19,6 +19,8 @@ async def run_validate_self_reflect(self, problem):
         # inference
         response_validate_reflect, _ = await send_inference(f)
         response_validate_reflect = response_validate_reflect.rstrip("` \n")
+        if response_validate_reflect.startswith("```yaml"):
+            response_validate_reflect = response_validate_reflect[8:]
         try:
             response_validate_reflect_yaml = yaml.safe_load(response_validate_reflect)
         except yaml.YAMLError:

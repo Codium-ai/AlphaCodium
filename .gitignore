@@ -1,0 +1,11 @@
+# MacOS
+.DS_Store
+
+# Python virtual environment
+venv/
+
+# codecontests datasets
+valid_and_test_processed/
+
+# Python cache files
+**/__pycache__/

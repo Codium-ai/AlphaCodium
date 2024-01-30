@@ -20,6 +20,8 @@ async def run_analyze_and_fix_test_failure(self, problem, error_str):
             problem['error_str'] = ''
 
             response_analyze_failure = response_analyze_failure.rstrip("'` \n") # remove trailing spaces and newlines from yaml response
+            if response_analyze_failure.startswith("```yaml"):
+                response_analyze_failure = response_analyze_failure[8:]
             response_analyze_failure_yaml = yaml.safe_load(response_analyze_failure)
             problem['response_analyze_failure'] = response_analyze_failure
             code_recent_solution = response_analyze_failure_yaml['fixed_code'].rstrip("'` \n")
