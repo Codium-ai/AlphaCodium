@@ -1,5 +1,6 @@
 [code_contests_prompt_generate_possible_solutions]
 temperature = 0.3
+frequency_penalty = 0.1
 system= """\
 Pay attention to small details and nuances in the problem description.
 """

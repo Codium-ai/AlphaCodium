@@ -1,5 +1,6 @@
 [code_contests_prompt_analyze_failure]
 temperature = 0.3
+frequency_penalty = 0.1
 system = """\
 """
 user="""\
