@@ -19,6 +19,7 @@ msrest==0.7.1
 ##
 openai
 litellm
+duckdb==0.9.3.dev3077
 datasets
 notebook
 black

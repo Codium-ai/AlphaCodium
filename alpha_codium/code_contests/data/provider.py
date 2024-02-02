@@ -2,6 +2,7 @@ import os
 import os.path
 from typing import Iterable
 
+import duckdb
 import numpy as np
 import pandas as pd
 from datasets import Dataset, DatasetDict, load_dataset, load_from_disk
@@ -26,7 +27,7 @@ class CodeContestDataProvider:
             self.load_from_disk,
         ) = self.parse_location(dataset_location)
         self.dataset = self.load_dataset()
-        self.connection = connection
+        self.connection = connection or duckdb.connect()
         self.connect(self.dataset)
 
 
