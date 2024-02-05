@@ -24,7 +24,7 @@ validate_self_reflection=false
 [possible_solutions]
 max_num_of_possible_solutions=3
 use_test_explanations=true
-remove_bruce_force_solutions=true
+remove_brute_force_solutions=false
 
 [generate_ai_tests]
 validate_ai_tests=false

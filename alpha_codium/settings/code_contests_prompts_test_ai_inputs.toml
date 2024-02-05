@@ -23,24 +23,29 @@ Here are also explanations for the problem test cases:
 {{ tests_explanations_str|trim }}
 ============
 
+Here is an algorithm to solve the problem:
+============
+{{ s_best_solution|trim }}
+============
+
 Here is a Python Code for the above algorithm to solve the problem:
 ============
-{{ ????|trim }}
+{{ call['code']|trim }}
 ============
 
 
-Running the above code, the function sort_books() with arguments
-    [(1, 'AB'), (2, 'CD')]
+Running the above code, the function {{call['func']}} with arguments:
+    {{call['kwargs']}}
 raised error:
-    'cmp' is an invalid keyword argument for sort().
+    {{exc}}
 
 Your task is to analyise the argument, and function body. Check if the arguments are valid according to the function comments.
-If the arguments are valid, find the cause of error, say how to fix it, and give the fixed code for sort_books(). Keep the comments.
+If the arguments are valid, find the cause of error, say how to fix it, and give the fixed code for {{call['func']}}. Keep the comments.
 The output must be a valid YAML object equivalent to type $FunctionError, according to the following Pydantic definitions:
 ======
 class FunctionError(BaseModel):
     valid_arguments: bool
-    explanation: str = Field(description='Short explanation if the arguments are valid. Be specific')
+    argument_explanation: str = Field(description='Short explanation if the arguments are valid. Be specific')
     error_cause: str = Field(description='Short explanation of the casue of error. Be specific')
     fix: str = Field(description='Short explanation of the fix. Be specific')
     new_code: str = Field(description='Fixed code of function in Python.')

@@ -41,20 +41,6 @@ The output must be a YAML object equivalent to type $ProblemSolutions, according
 ======
 class Solution(BaseModel):
     name: str = Field(description="The name of the solution")
-    key_observation: str = Field(description="The name of the solution")
-    content: str = Field(description="A description of the solution")
-    why_it_works: str = Field(description="Shortly explain why this solution correctly solves the problem. Be specific and detailed regarding the problem rules and goals.")
-    labels: List[str] = Field(description="A list of labels for the solution. For example (partial list): binary search, dynamic programming, trees, combinatorics, dfs, bfs, graphs, greedy, math, data structures, geometry, number theory, two pointers, simulation, direct approach, probabilities, ...")
-    complexity: str = Field(description="The complexity of the solution")
-
-
-class $ProblemSolutions(BaseModel):
-    possible_solutions: List[Solution] = Field(max_items={{max_num_of_possible_solutions}}, description="A list of possible solutions to the problem. Make sure each solution fully addresses the problem rules and goals.")
-======
-
-======
-class Solution(BaseModel):
-    name: str = Field(description="The name of the solution")
     key_observations: List[str] = Field(description="A list of valid, key algorithmic observations")
     content: str = Field(description="A description of the solution")
     why_it_works: str = Field(description="Shortly explain why this solution correctly solves the problem. Be specific and detailed regarding the problem rules and goals.")

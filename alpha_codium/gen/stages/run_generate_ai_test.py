@@ -27,7 +27,7 @@ async def run_generate_ai_tests(self, problem):
             # inference
             response_problem_tests, _ = await send_inference(f)
             problem['problem_ai_tests'] = load_yaml(response_problem_tests,
-                                                    keys_fix_yaml=["input:", "output:", "explanation:"])['tests']
+                                                    keys_fix_yaml=["input:", "explanation:"])['tests']
             problem['problem_ai_simple_test'] = problem['problem_ai_tests'][0]
 
             if validate_ai_tests:
