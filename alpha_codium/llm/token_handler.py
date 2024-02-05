@@ -1,7 +1,7 @@
 from jinja2 import Environment, StrictUndefined
 from tiktoken import encoding_for_model, get_encoding
 
-from alpha_codium.config_loader import get_settings
+from alpha_codium.settings.config_loader import get_settings
 
 
 def get_token_encoder():
