@@ -35,7 +35,7 @@ async def run_public_tests(self, problem):
     counter_retry = 0
     while True:
         try:
-            logger.info("--tests stage--")
+            logger.info("--debugging stage--")
             inputs = problem['public_tests']['input']
             outputs = problem['public_tests']['output']
             success_n = 0
@@ -54,6 +54,7 @@ async def run_public_tests(self, problem):
                             logger.info(f"Giving up.")
                             continue
                         else:
+                            #TODO  Go through ALL functoin calls, if max output tokens allows.
                             f = functools.partial(self._run, problem=problem, prompt="code_contests_prompts_debug")
                             problem['callstack_analysis'], _ = await send_inference(f)
 
