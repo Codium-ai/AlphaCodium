@@ -1,38 +1,57 @@
-
 import inspect
 from functools import wraps
 import types
 from alpha_codium.log import get_logger
+import traceback
+from pydantic import BaseModel
+from typing import Any, List, Optional
 
 
 logger = get_logger(__name__)
 
-def log_inputs_outputs_errors(func, calls):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        arg_str = ", ".join([f"{repr(arg)}" for arg in args])
-        kwarg_str = ", ".join([f"{key}={repr(value)}" for key, value in kwargs.items()])
-        logger.debug(f"Calling {func.__name__} with arguments: {arg_str}, {kwarg_str}")
+import functools
+import yaml
 
-        exception_info = None
-        return_val = None
+class FunctionCall(BaseModel):
+    function: str
+    input: Optional[Any] = None
+    output: Optional[Any] = None
+    exception: Optional[str] = None
+    calls: List['FunctionCall'] = []
+
+FunctionCall.update_forward_refs()
+
+def log_function_call(func, call_stack):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        func_input = args if args else kwargs
+        call_info = FunctionCall(
+            function=func.__name__,
+            input= (args, kwargs)
+        )
+
+        # Append call_info to the calls list of the last item in call_stack if it exists
+        if call_stack:
+            call_stack[-1].calls.append(call_info)
+
+        # Always push the current call_info onto the call_stack
+        call_stack.append(call_info)
+
         try:
-            return_val = func(*args, **kwargs)
-            logger.debug(f"{func.__name__} returned: {repr(return_val)}")
+            result = func(*args, **kwargs)
+            call_info.output = result
+            return result
         except Exception as e:
-            exception_info = e
-            logger.debug(f"Error in {func.__name__}: {str(e)}")
-            #raise  # Re-raise the exception
+            call_info.exception = str(e)
+            if len(call_stack) > 1:
+                raise
         finally:
-            # Store the call information including exception if any
-            calls.append({"func":func.__name__, "args":args, "kwargs":kwargs, "return_val":return_val, "excep":exception_info})
-            return return_val
+            # Pop the current call_info from the call_stack
+            if len(call_stack) > 1:
+                call_stack.pop()
+
     return wrapper
 
-def apply_logging_decorator_to_module(module, calls):
-    for name, obj in inspect.getmembers(module):
-        if inspect.isfunction(obj):
-            setattr(module, name, log_inputs_outputs_errors(obj, calls))
 
 def exec_code(code, inp):
     #TODO Timeout
@@ -40,11 +59,14 @@ def exec_code(code, inp):
     # Step 1: Convert candidate code to a module
 
     candidate_module = types.ModuleType("code_module")
+    #TODO What if the code has syntax error?
     exec(code, candidate_module.__dict__)
 
-    calls = []
+    call_stack = []
     # Step 2: Apply logging decorator to all functions in the candidate module
-    apply_logging_decorator_to_module(candidate_module, calls)
+    for name, obj in inspect.getmembers(candidate_module):
+        if inspect.isfunction(obj):
+            setattr(candidate_module, name, log_function_call(obj, call_stack))
 
     # Now, when you call functions from my_module, the decorator will log inputs, outputs, and errors
     inputs = inp.strip().split('\n')
@@ -52,20 +74,23 @@ def exec_code(code, inp):
 
     # Define a new input function that returns the next item from the iterator
     #original_input = candidate_module.__dict__['__builtins__']['input']  # Backup the original input function
-    candidate_module.__dict__['__builtins__']['input'] = lambda prompt='': next(inputs)
+    candidate_module.__dict__['input'] = lambda prompt='': next(inputs)
 
     captured_outputs = []  # List to store captured print outputs
 
     # Custom print function that captures outputs
     def custom_print(*args, **kwargs):
-        captured_outputs.append(' '.join(map(str, args)))
+        end = kwargs.get('end', '\n')  # Get 'end' from kwargs or use '\n' as default
+        captured_outputs.append(' '.join(map(str, args)) + end)
 
-    candidate_module.__dict__['__builtins__']['print'] = custom_print
+    candidate_module.__dict__['print'] = custom_print
 
     try:
         candidate_module.main()  # Call the main function with the overridden input
+    except Exception as e:
+        print(e)
     finally:
         pass
         #__builtins__.input = original_input  # Restore the original input function
-    return calls, '\n'.join(captured_outputs)
+    return call_stack[0], ''.join(captured_outputs)
 

@@ -1,7 +1,7 @@
 [code_contests_prompts_generate_function_body]
 temperature = 0.3
 system= """\
-- You must divide the generated code into small sub-functions, with meaningful names and functionality. Skip the body of functions.
+- You are a seasoned programmer. ouput nothing other than the code.
 - Double-check the solution code. The generated solution must generalize to any valid input, and not just the provided examples.
 """
 user="""\
@@ -35,6 +35,7 @@ Guidelines:
 - Make sure to address the problem constraints.
 - Add necessary imports.
 - Output should be a self-contained code.
+- Ouput just the code, output nothing before or after the code.
 - Keep the code structure and the comments intact.
 
 

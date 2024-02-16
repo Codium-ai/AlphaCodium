@@ -66,30 +66,31 @@ class CodeContestsCompetitor:
             if get_settings().get("solve.use_baseline", False):
                 problem['code_recent_solution'] = await run_baseline(self, problem)
             else:
-                # configurations
-                #problem = set_configurations(problem, iteration)
+                #configurations
+                problem = set_configurations(problem, iteration)
 
-                # self-reflect
-                #problem = await run_self_reflect(self, problem)
+                # # self-reflect
+                problem = await run_self_reflect(self, problem)
 
-                # generate solutions
-                #problem = await run_generate_possible_solutions(self, problem)
+                # # generate solutions
+                problem = await run_generate_possible_solutions(self, problem)
 
-                # choose best solution
-                #problem = await run_choose_best_solution(self, problem)
+                # # choose best solution
+                problem = await run_choose_best_solution(self, problem)
 
-                # generate ai tests (only inputs)
-                #problem = await run_generate_ai_tests(self, problem)
+                # # generate ai tests (only inputs)
+                # # problem = await run_generate_ai_tests(self, problem)
 
-                # generate code structure
-                #problem = await run_code_structure_generation(self, problem)
+                # # generate code structure
+                problem = await run_code_structure_generation(self, problem)
 
-                # function body generation
-                #problem = await run_function_body_generation(self, problem)
+                # # function body generation
+                problem = await run_function_body_generation(self, problem)
 
                 #evaluate on tests
                 problem = await run_public_tests(self, problem)
-            return problem['code_recent_solution']
+                pass
+            return problem['code']
         except Exception as e:
             logging.error(f"Error: {e}")
             return ""

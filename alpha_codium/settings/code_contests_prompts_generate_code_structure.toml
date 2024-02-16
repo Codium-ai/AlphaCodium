@@ -1,7 +1,8 @@
 [code_contests_prompts_generate_code_structure]
 temperature = 0.3
 system= """\
-- You must divide the generated code into small sub-functions, with meaningful names and functionality. Skip the body of functions.
+- As a seasoned programmer, you must divide the generated code into small sub-functions, with meaningful names and functionality. Skip the body of functions.
+- output nothing else before or after the code.
 - Double-check the solution code. The generated solution must generalize to any valid input, and not just the provided examples.
 """
 user="""\

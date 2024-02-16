@@ -1,0 +1,66 @@
+[code_contests_prompts_fix_code]
+temperature = 0.3
+frequency_penalty = 0.1
+system="""\
+- As a seasoned prograammer, fix the code
+- output nothing else before or after the code
+"""
+user="""\
+You are given a code contest problem:
+=============
+{{ description|trim }}
+=============
+
+a self-reflection on the problem:
+======
+{{ self_reflection|trim }}
+======
+
+and an Algorithm for the problem:
+=============
+{{ s_best_solution_str|trim }}
+=============
+
+The code below is an implementation of the algorithm. But its output on a test input is wrong:
+
+Code:
+=================
+{{code|trim}}
+=================
+
+Test input:
+=====================
+5 2
+AA
+AB
+BB
+BA
+AZ
+=====================
+Test output:
+====================
+5 2 1 3 4
+====================
+
+Code output:
+====================
+1 2 3 4 5
+====================
+
+Your task is to correct the code, according to the following analysis of the call stack:
+
+Analysis of call stack:
+===================
+{{callstack_analysis|trim}}
+===================
+
+Guidelines:
+- The correction should be based on the analysis of call stack.
+- Give the whole new code.
+- Make just the necessary changes. Keep the program structure, if possible.
+- Keep the comments intact. Except that a comment is wrong, where you should correct it.
+- The code should read the input using the 'input()' method. The output should be printed without additional words using the 'print()' method.
+
+Answer:
+```python
+"""

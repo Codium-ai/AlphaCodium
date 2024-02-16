@@ -2,6 +2,8 @@
 temperature = 0.2
 frequency_penalty = 0.1
 system = """\
+- As a seasoned programmer, choose the best solution.
+- Output nothing other that the YAML.
 """
 
 User="""\
