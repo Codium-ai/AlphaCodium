@@ -57,7 +57,7 @@ key = "..."
 The file: `alpha_codium/settings/configuration.toml` contains the configuration for the project.
 In the `config` section you can choose the model you want to use ("gpt-4", "gpt-3.5-turbo-16k", or others).
 
-### Solving a specific problem
+### Solving a specific problem from CodeContest
 To solve a specific problem with AlphaCodium, from the root folder run:
 ```
 python -m alpha_codium.solve_problem \
@@ -82,7 +82,7 @@ Example problem (test set, problem number 12):
 </table>
 </p>
 
-### Solving the entire dataset
+### Solving an entire CodeContest dataset split
 to solve the entire dataset with AlphaCodium, from the root folder run:
 ```
 python -m alpha_codium.solve_dataset \
@@ -106,6 +106,24 @@ python -m alpha_codium.evaluate_dataset\
 --split_name test\
 --database_solution_path /path/to/output/dir/dataset_output.json
 ```
+
+### Solving a new problem (CodeContest format)
+To solve a custom problem with AlphaCodium, first create a json file that includes the CodeContest problem fields, and then from the root folder run:
+```
+python -m alpha_codium.solve_my_problem \
+--my_problem_json_file /path/to/my_problem.json
+```
+- The `my_problem_json_file` is the path to to the custom problem json file.
+
+See the `my_problem_example.json` to see an example of a custom problem. The json file should include the following fields:
+- `name` is the name of the problem.
+- `description` is a description of the problem.
+- (optional) `public_tests` with the following fields:
+  - `input` is a list of strings that represent the input.
+  - `output` is a list of strings that represent the output.
+- (optional) `private_tests`, that follows the same structure as `public_tests`
+- (optional) `generated_tests`, that follows the same structure as `public_tests`
+
 
 ## Technical Q&A
 Aggregating some technical questions we received about this project:

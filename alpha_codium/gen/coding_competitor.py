@@ -104,7 +104,6 @@ def solve_problem(dataset_name,
                   problem_number=0):
 
     # load dataset
-    base_path = os.getcwd()
     logger = get_logger(__name__)
     data_provider = CodeContestDataProvider(dataset_location=dataset_name)
     if problem_number and problem_name:
@@ -153,6 +152,14 @@ def solve_problem(dataset_name,
             pass
 
 
+    return solve_my_problem(problem)
+
+
+def solve_my_problem(problem):
+    
+    base_path = os.getcwd()
+    logger = get_logger(__name__)
+
     solver = CodeContestsCompetitor()
     os.chdir(base_path)
     solution = solver.solve_problem_in_dataset(problem)
@@ -180,4 +187,3 @@ def solve_problem(dataset_name,
                 f"\ntest_timeout_generate: {test_timeout_generate}, test_timeout_private: {test_timeout_private}, test_timeout_public: {test_timeout_public}")
 
     return solution, test_results
-
