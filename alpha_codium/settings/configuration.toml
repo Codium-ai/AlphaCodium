@@ -1,12 +1,13 @@
 [config]
-model="gpt-4-0613"
+model="gpt-4-0125-preview"
+#model="gpt-4-0613"
 #model = "gpt-3.5-turbo-16k"
+frequency_penalty=0.1
 ai_timeout=90 # seconds
 fallback_models =[]
 verbosity_level=0 # 0,1,2
 private_dataset_cache_dir="~/.cache/huggingface/datasets/alpha_codium"
 max_requests_per_minute=60
-
 
 [dataset]
 evaluate_prev_solutions=false

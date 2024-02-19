@@ -1,6 +1,5 @@
 [code_contests_prompt_fix_solution]
 temperature = 0.3
-frequency_penalty = 0.1
 system="""\
 - You must divide the fixed code into small sub-functions, with meaningful names and functionality. Each function should be no longer than 10 lines of code.
 - The fixed code should be robust and general, and work for other input examples as well.

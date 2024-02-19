@@ -1,6 +1,5 @@
 [code_contests_prompts_validate_ai_tests]
 temperature = 0.2
-frequency_penalty = 0.1
 system = """\
 Your goal is to consider each AI-generated test, and make sure its output and its explanation are correct. Be critical - they could be wrong.
 guidelines:
