@@ -1,0 +1,93 @@
+site_name: AlphaCodium
+
+nav: 
+  - Overview: 'index.md'
+
+theme:
+  logo: https://www.codium.ai/wp-content/uploads/2023/02/codium-mobile-logo.svg
+  favicon: https://www.codium.ai/wp-content/uploads/2024/03/favicon.ico
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.expand
+    - navigation.path
+    - navigation.top
+    - navigation.tracking
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+    - toc.integrate
+  language: en
+  custom_dir: overrides
+    
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline 
+        name: Switch to dark mode
+      primary: custom
+      accent: custom
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate 
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode    
+      primary: custom
+      accent: custom
+    
+    
+
+plugins:
+  - social
+  - search
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Codium-ai
+    - icon: fontawesome/brands/discord
+      link: https://discord.com/invite/SgSxuQ65GF
+    - icon: fontawesome/brands/youtube
+      link: https://www.youtube.com/@Codium-AI
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/codiumai
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/CodiumAI
+    - icon: fontawesome/brands/instagram
+      link: https://www.instagram.com/codiumai/
+
+extra_css:
+  - css/custom.css
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - admonition
+  - pymdownx.arithmatex:
+      generic: true
+  - footnotes
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.mark
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - toc:
+      title: On this page
+      toc_depth: 3
+      permalink: true
+  
+copyright: |
+  &copy; 2024 <a href="https://www.codium.ai/"  target="_blank" rel="noopener">CodiumAI</a>
