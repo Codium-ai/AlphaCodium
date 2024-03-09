@@ -4,8 +4,8 @@ nav:
   - AlphaCodium: 'index.md'
 
 theme:
-  logo: https://www.codium.ai/wp-content/uploads/2024/03/logo.png
-  favicon: https://www.codium.ai/wp-content/uploads/2024/03/favicon.ico
+  logo: assets/logo.png
+  favicon: assets/favicon.ico
   name: material
   features:
     - navigation.tabs
@@ -42,8 +42,6 @@ theme:
         name: Switch to light mode    
       primary: custom
       accent: custom
-    
-    
 
 plugins:
   - social
