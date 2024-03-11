@@ -3,7 +3,7 @@ import os
 from evaluate import load as load_metric
 
 from alpha_codium.code_contests.data.provider import CodeContestDataProvider
-from alpha_codium.config_loader import get_settings
+from alpha_codium.settings.config_loader import get_settings
 
 
 def calculate_metrics(ds, k_values=[1, 10, 100]):  # noqa: B006

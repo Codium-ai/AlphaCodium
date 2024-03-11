@@ -1,6 +1,5 @@
 [code_contests_prompt_analyze_and_fix_direct]
 temperature = 0.2
-frequency_penalty = 0.1
 system = """\
 - You must divide the new code into small sub-functions, with meaningful names and functionality. Variable names should also be meaningful.
 - The new code still needs to utilize an exhaustive approach like simulation, recursion, brute-force or direct solution. Ignore the problem constraints regarding large input size.

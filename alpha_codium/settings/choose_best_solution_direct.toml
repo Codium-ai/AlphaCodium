@@ -1,6 +1,5 @@
 [code_contests_prompts_choose_best_solution_direct]
 temperature = 0.3
-frequency_penalty = 0.1
 system = """\
 To solve the problem, utilize an exhaustive high-computational approach like simulation, recursion, brute-force or other direct approach. Ignore the problem constraints regarding large input size.
 """

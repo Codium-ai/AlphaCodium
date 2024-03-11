@@ -1,6 +1,5 @@
 [code_contests_prompts_validate_reflection]
 temperature = 0.2
-frequency_penalty = 0.1
 system = """\
 """
 

@@ -43,11 +43,14 @@ class CodeContestsCompetitor:
         if hasattr(self.prompt[prompt], 'frequency_penalty'):
             frequency_penalty = self.prompt[prompt].frequency_penalty
         else:
-            frequency_penalty = 0
+            frequency_penalty = None
         return sys_prompt, usr_prompt, temperature, frequency_penalty
 
     async def _run(self, model, problem, prompt:str = "code_contests_prompt_reflect"):
         system_prompt, user_prompt, temperature, frequency_penalty = self.render(problem, prompt)
+
+        if frequency_penalty == None:
+            frequency_penalty = get_settings().get("config.frequency_penalty")
 
         response, finish_reason = await self.ai_handler.chat_completion(
             model=model, system=system_prompt, user=user_prompt,
@@ -107,7 +110,6 @@ def solve_problem(dataset_name,
                   problem_number=0):
 
     # load dataset
-    base_path = os.getcwd()
     logger = get_logger(__name__)
     data_provider = CodeContestDataProvider(dataset_location=dataset_name)
     if problem_number and problem_name:
@@ -155,6 +157,14 @@ def solve_problem(dataset_name,
             logger.error(f"Error evaluating public solutions: {e}")
             pass
 
+
+    return solve_my_problem(problem)
+
+
+def solve_my_problem(problem):
+
+    base_path = os.getcwd()
+    logger = get_logger(__name__)
 
     solver = CodeContestsCompetitor()
     os.chdir(base_path)
