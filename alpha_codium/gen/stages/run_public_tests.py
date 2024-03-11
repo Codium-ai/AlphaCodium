@@ -11,7 +11,7 @@ import yaml
 
 logger = get_logger(__name__)
 
-def custom_function_call_representer(dumper, obj):
+def function_call_representer(dumper, obj):
     # Directly creating a representation dictionary including all fields
     # without filtering out None values, focusing on 'output' serialization
 
@@ -20,15 +20,19 @@ def custom_function_call_representer(dumper, obj):
 
     node = {
         'function': obj.function,
-        'input': inpp,
+        'input': repr(inpp) if inpp != None else None,
         # Serializing 'output' using its __repr__(), ensuring it's a string in the YAML
-        'output': repr(obj.output),
-        'exception': repr(obj.exception),
+        'output': obj.output if obj.output != None else None,
+        'exception': repr(obj.exception) if obj.exception != None else None,
         'calls': obj.calls,
     }
     return dumper.represent_dict(node.items())
 
-yaml.add_representer(FunctionCall, custom_function_call_representer)
+def string_representer(dumper, data):
+    return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='|')
+
+yaml.add_representer(FunctionCall, function_call_representer)
+yaml.add_representer(str, string_representer)
 
 max_iter = 10
 async def run_public_tests(self, problem):
@@ -39,16 +43,16 @@ async def run_public_tests(self, problem):
             inputs = problem['public_tests']['input']
             outputs = problem['public_tests']['output']
             success_n = 0
-            for i, (inp, outp) in enumerate(zip(inputs,outputs)):
+            for _, (inp, outp) in enumerate(zip(inputs,outputs)):
                 for iter in range(max_iter):
-                    success = True
-                    callstack, output = exec_code(problem['code'], inp)
+                    global_excep, callstack, output = exec_code(problem['code'], inp)
                     problem['test_input'] = inp
                     problem['test_output'] = outp
-                    problem['output'] = output
-                    problem['callstack_str'] = yaml.dump(callstack, allow_unicode=True, default_flow_style=False)
+                    problem['output'] = output or ""
+                    problem['global_excep'] = repr(global_excep) if global_excep else ""
+                    problem['callstack_str'] = yaml.dump(callstack, allow_unicode=True, default_flow_style=False) if callstack else ""
 
-                    if output.strip() != outp.strip():
+                    if output == None or (output.strip() != outp.strip()):
                         logger.info(f"Failed to pass the test after {iter+1} attempts, the output is incorrect.")
                         if iter == max_iter - 1:
                             logger.info(f"Giving up.")
@@ -60,7 +64,6 @@ async def run_public_tests(self, problem):
 
                             f = functools.partial(self._run, problem=problem, prompt="code_contests_prompts_fix_code")
                             fixed_code, _ = await send_inference(f)
-                            #TODO What if the code has syntax error?
 
                             fixed_code = fixed_code.rstrip("` \n")
                             if fixed_code.startswith("```python"):

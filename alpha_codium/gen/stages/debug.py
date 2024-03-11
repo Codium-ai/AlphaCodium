@@ -14,8 +14,8 @@ import yaml
 
 class FunctionCall(BaseModel):
     function: str
-    input: Optional[Any] = None
-    output: Optional[Any] = None
+    input: Any = None
+    output: Any = None
     exception: Optional[str] = None
     calls: List['FunctionCall'] = []
 
@@ -60,7 +60,10 @@ def exec_code(code, inp):
 
     candidate_module = types.ModuleType("code_module")
     #TODO What if the code has syntax error?
-    exec(code, candidate_module.__dict__)
+    try:
+        exec(code, candidate_module.__dict__)
+    except Exception as e:
+        return e, None, None
 
     call_stack = []
     # Step 2: Apply logging decorator to all functions in the candidate module
@@ -86,11 +89,10 @@ def exec_code(code, inp):
     candidate_module.__dict__['print'] = custom_print
 
     try:
-        candidate_module.main()  # Call the main function with the overridden input
+        candidate_module.main()
     except Exception as e:
         print(e)
     finally:
         pass
         #__builtins__.input = original_input  # Restore the original input function
-    return call_stack[0], ''.join(captured_outputs)
-
+    return None, call_stack[0], ''.join(captured_outputs)

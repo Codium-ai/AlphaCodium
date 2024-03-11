@@ -183,4 +183,3 @@ def solve_problem(dataset_name,
                 f"\ntest_timeout_generate: {test_timeout_generate}, test_timeout_private: {test_timeout_private}, test_timeout_public: {test_timeout_public}")
 
     return solution, test_results
-

@@ -21,7 +21,7 @@ and an Algorithm for the problem:
 {{ s_best_solution_str|trim }}
 =============
 
-The code below is an implementation of the algorithm. But run on test input, its output is wrong.
+The code below is an implementation of the algorithm. But run on test input, its output is wrong or there is an error.
 Your task is to study the debug information of the call stack, and to answer these questions:
 - Is the output formatting correct? (per problem description)
 For each function call (per function comments):
@@ -48,10 +48,14 @@ Test output:
 
 Code output:
 ====================
-{{output|trim}}
+{%- if output %}
+{{ output }}
+{%- endif %}
 ====================
+
 Call stack:
 ===================
+{{global_excep|trim}}
 {{callstack_str|trim}}
 ===================
 
@@ -70,9 +74,10 @@ class FunctionCall(BaseModel):
     calls: Optional[List['FunctionCall']] = []
 
 class DebugAnalysis(BaseModel):
-    output_formatting_correct: bool = Field(description="Whether the overall output formatting is correct per problem description.")
-    incorrect_output_formatting: Optional[str] = Field(default="", description="short explanation why the output is not correctly formatted?")
-    function_calls: FunctionCall = Field(description="Analysis of each function call in the call stack.")
+    output_formatting_correct: Optional[bool] = Field(description="Only if an output is generated, whether the overall output formatting is correct per problem description.")
+    incorrect_output_formatting: Optional[str] = Field(description="If an output is generated in incorrect format, short explanation why?")
+    global_excep_cause: Optional[str] = Field(description="In case of a global exception, short explanation of its cause.")
+    function_calls: Optional[FunctionCall] = Field(description="Analysis of each function call in the call stack.")
     additional_comments: str = Field(default="", description="Any additional comments or observations not covered by the function call analyses.")
 ================
 
@@ -81,34 +86,40 @@ Guidelines:
 - Double-check each function call, its input, output per function comments.
 - Notice that the cause of incorrect return value or an exception can be other functions that this function calls
 
-Example YAML output:
+I need a response in YAML format, where each section's content is properly indented and includes multiline strings with the block scalar indicator ('|'),
+per following example:
+
 ```yaml
-output_formatting_correct: ...
+output_formatting_correct: |
+  ...
+incorrect_output_formatting: |
+  ...
+global_excep_cause: |
+  ...
 function_calls:
-  function: |
-    ...
-  input: |
-    ...
-  valid_input: |
-    ...
-  invalid_input_cause: |
-    ...
-  return_value: |
-    ...
-  correct_return_value: |
-    ...
-  incorrect_return_value: |
-    ...
-  exception: |
-    ...
-  exception_cause: |
-    ...
-  calls:
-    - ...
-    ...
+  - function: |
+      ...
+    input: |
+      ...
+    valid_input: |
+      ...
+    invalid_input_cause: |
+      ...
+    return_value: |
+      ...
+    correct_return_value: |
+      ...
+    incorrect_return_value: |
+      ...
+    exception: |
+      ...
+    exception_cause: |
+      ...
+    calls:
+      - ...
 additional_comments: |
   ...
-
+```
 
 Answer:
 ```yaml
