@@ -5,7 +5,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN  apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y \
     clang \
     curl \
     git \
@@ -19,7 +19,6 @@ RUN  apt-get update && apt-get install -y \
     libsqlite3-dev \
     software-properties-common \
     vim
-
 
 RUN add-apt-repository ppa:deadsnakes/ppa -y
 
@@ -35,5 +34,11 @@ RUN python3.9 --version
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.9 1
 RUN update-alternatives --set python /usr/bin/python3.9
 
+# Create a specific directory for your project
+RUN mkdir -p /app/alphacodium
 
+# Set the working directory to the newly created directory
+WORKDIR /app/alphacodium
 
+# Copy the entire project directory into the image
+COPY . .
