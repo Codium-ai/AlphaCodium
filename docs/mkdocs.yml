@@ -4,7 +4,7 @@ nav:
   - 'index.md'
 
 theme:
-  logo: assets/logo.png
+  logo: assets/logo.svg 
   favicon: assets/favicon.ico
   name: material
   features:
