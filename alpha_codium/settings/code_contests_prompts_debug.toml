@@ -1,0 +1,126 @@
+[code_contests_prompts_debug]
+temperature = 0.2
+frequency_penalty = 0.1
+system="""\
+-- As a seasoned programmer debug the code.
+-- output nothing else before or after the YAML.
+"""
+user="""\
+You are given a code contest problem:
+=============
+{{ description|trim }}
+=============
+
+a self-reflection on the problem:
+======
+{{ self_reflection|trim }}
+======
+
+and an Algorithm for the problem:
+=============
+{{ s_best_solution_str|trim }}
+=============
+
+The code below is an implementation of the algorithm. But run on test input, its output is wrong or there is an error.
+Your task is to study the debug information of the call stack, and to answer these questions:
+- Is the output formatting correct? (per problem description)
+For each function call (per function comments):
+- Is it valid input?
+- If invalid input, what caused it?
+- If valid input, is the output correct?
+- If valid input, if an exception is raised, what caused it?
+
+If you think the false output has other cause, like false algorithm, or that a function comments are false, say it.
+
+Code:
+=================
+{{code|trim}}
+=================
+
+Test input:
+=====================
+{{test_input|trim}}
+=====================
+Test output:
+====================
+{{test_output|trim}}
+====================
+
+Code output:
+====================
+{%- if output %}
+{{ output }}
+{%- endif %}
+====================
+
+Call stack:
+===================
+{{global_excep|trim}}
+{{callstack_str|trim}}
+===================
+
+The output must be a YAML object equivalent to type $ProblemReflection, according to the following Pydantic definitions:
+===============
+class FunctionCall(BaseModel):
+    function: str
+    input: Any = None
+    valid_input: bool = Field(description="Whether the input to the function was valid.")
+    invalid_input_cause: Optional[str] = Field(default="", description="what caused the invalid input?")
+    return_value: Any = None
+    correct_return_value: bool = Field(description="Whether the input to the function was valid.")
+    incorrect_return_value: Optional[str] = Field(default="", description="What caused the incorrect output?")
+    exception: Optional[str] = None
+    exception_cause: Optional[str] = Field(default="", description="What caused the exception?")
+    calls: Optional[List['FunctionCall']] = []
+
+class DebugAnalysis(BaseModel):
+    output_formatting_correct: Optional[bool] = Field(description="Only if an output is generated, whether the overall output formatting is correct per problem description.")
+    incorrect_output_formatting: Optional[str] = Field(description="If an output is generated in incorrect format, short explanation why?")
+    global_excep_cause: Optional[str] = Field(description="In case of a global exception, short explanation of its cause.")
+    function_calls: Optional[FunctionCall] = Field(description="Analysis of each function call in the call stack.")
+    additional_comments: str = Field(default="", description="Any additional comments or observations not covered by the function call analyses.")
+================
+
+Guidelines:
+- Check ouput format against problem description
+- Double-check each function call, its input, output per function comments.
+- Notice that the cause of incorrect return value or an exception can be other functions that this function calls
+
+I need a response in YAML format, where each section's content is properly indented and includes multiline strings with the block scalar indicator ('|'),
+per following example:
+
+```yaml
+output_formatting_correct: |
+  ...
+incorrect_output_formatting: |
+  ...
+global_excep_cause: |
+  ...
+function_calls:
+  - function: |
+      ...
+    input: |
+      ...
+    valid_input: |
+      ...
+    invalid_input_cause: |
+      ...
+    return_value: |
+      ...
+    correct_return_value: |
+      ...
+    incorrect_return_value: |
+      ...
+    exception: |
+      ...
+    exception_cause: |
+      ...
+    calls:
+      - ...
+additional_comments: |
+  ...
+```
+
+Answer:
+```yaml
+"""

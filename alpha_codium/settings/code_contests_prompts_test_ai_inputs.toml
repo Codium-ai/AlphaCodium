@@ -1,0 +1,84 @@
+[code_contests_prompts_generate_ai_tests]
+temperature = 0.2
+system = """\
+"""
+
+User="""\
+You are given a code contest problem and a self-reflection on the problem:
+
+
+problem description:
+======
+{{ description|trim }}
+======
+
+
+self-reflection on the problem:
+======
+{{ self_reflection|trim }}
+======
+
+Here are also explanations for the problem test cases:
+============
+{{ tests_explanations_str|trim }}
+============
+
+Here is an algorithm to solve the problem:
+============
+{{ s_best_solution|trim }}
+============
+
+Here is a Python Code for the above algorithm to solve the problem:
+============
+{{ call['code']|trim }}
+============
+
+
+Running the above code, the function {{call['func']}} with arguments:
+    {{call['kwargs']}}
+raised error:
+    {{exc}}
+
+Your task is to analyise the argument, and function body. Check if the arguments are valid according to the function comments.
+If the arguments are valid, find the cause of error, say how to fix it, and give the fixed code for {{call['func']}}. Keep the comments.
+The output must be a valid YAML object equivalent to type $FunctionError, according to the following Pydantic definitions:
+======
+class FunctionError(BaseModel):
+    valid_arguments: bool
+    argument_explanation: str = Field(description='Short explanation if the arguments are valid. Be specific')
+    error_cause: str = Field(description='Short explanation of the casue of error. Be specific')
+    fix: str = Field(description='Short explanation of the fix. Be specific')
+    new_code: str = Field(description='Fixed code of function in Python.')
+    import: str = Field(description='New imports needed by fixed function, if any.')
+======
+
+Guidelines:
+- Use  meaningful names for variables.
+- Double-check the fixed code. It should implement the part of algorithm in its comments, and generalize to any valid parameters, and not just the provided examples, and of course fix the error.
+- Make sure to address the problem constraints.
+- Add necessary new imports if any.
+- keep the function's name, signature and comments intact.
+
+
+Example YAML output:
+```yaml
+valid_arguments: |
+    ...
+explanation: |
+    ...
+error_cause: |
+    ...
+fix: |
+    ...
+new_code: |
+    def f(...):
+        ...
+import: |
+    import ...
+```
+
+Each YAML output MUST be after a newline, indented, with block scalar indicator ('|').
+
+Answer:
+```yaml
+"""

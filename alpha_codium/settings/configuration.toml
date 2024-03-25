@@ -5,8 +5,8 @@ model="gpt-4-0125-preview"
 frequency_penalty=0.1
 ai_timeout=90 # seconds
 fallback_models =[]
-verbosity_level=0 # 0,1,2
-private_dataset_cache_dir="~/.cache/huggingface/datasets/alpha_codium"
+verbosity_level=2 # 0,1,2
+private_dataset_cache_dir="~/ai/alphacodium"
 max_requests_per_minute=60
 
 [dataset]
@@ -25,7 +25,7 @@ validate_self_reflection=false
 [possible_solutions]
 max_num_of_possible_solutions=3
 use_test_explanations=true
-remove_bruce_force_solutions=true
+remove_brute_force_solutions=false
 
 [generate_ai_tests]
 validate_ai_tests=false
