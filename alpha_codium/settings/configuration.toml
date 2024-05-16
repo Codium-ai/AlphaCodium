@@ -1,7 +1,8 @@
 [config]
 model="gpt-4-0125-preview"
-#model="gpt-4-0613"
-#model = "gpt-3.5-turbo-16k"
+# model="gpt-4o-2024-05-13"
+# model="gpt-4-0613"
+# model="gpt-3.5-turbo-16k"
 frequency_penalty=0.1
 ai_timeout=90 # seconds
 fallback_models =[]
@@ -60,5 +61,5 @@ trace_depth=4
 [code_contests_tester]
 stop_on_first_failure = false
 timeout = 3
-path_to_python_bin = "/usr/bin/python3.9"
-path_to_python_lib = ["/usr/lib", "/usr/lib/python3.9"]
+path_to_python_bin = "./venv/bin/python3.9"
+path_to_python_lib = ["./venv/lib", "./venv/lib/python3.9"]

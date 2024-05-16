@@ -16,3 +16,7 @@ docs/.cache/
 
 # IDEA project-specific settings and configuration files
 .idea/
+
+alpha_codium/settings/.secrets.toml
+dataset_output.json
+example.log
