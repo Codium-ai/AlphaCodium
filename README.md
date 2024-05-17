@@ -41,9 +41,14 @@ Many of the principles and best practices we acquired in this work, we believe, 
 
 ## Installation
 
-(1) setup a virtual environment and run: `pip install -r requirements.txt`
+(1) setup a virtual environment：
+```bash
+python3 -m venv venv
+source ./venv/bin/activate
+```
+and run: `pip install -r requirements.txt`.
 
-(2) Duplicate the file `alpha_codium/settings/.secrets_template.toml`, rename it as `.secrets.toml`, and fill in your OpenAI API key:
+(2) Duplicate the file `alpha_codium/settings/.secrets_template.toml`, rename it as `alpha_codium/settings/.secrets.toml`, and fill in your OpenAI API key:
 ```
 [openai]
 key = "..."
@@ -87,7 +92,7 @@ to solve the entire dataset with AlphaCodium, from the root folder run:
 ```
 python -m alpha_codium.solve_dataset \
 --dataset_name /path/to/dataset \
---split_name test
+--split_name test \
 --database_solution_path /path/to/output/dir/dataset_output.json
 ```
 
@@ -101,9 +106,9 @@ python -m alpha_codium.solve_dataset \
 
 Once you generate a solution for the entire dataset (valid or test), you can evaluate it by running:
 ```
-python -m alpha_codium.evaluate_dataset\
---dataset_name /path/to/dataset\
---split_name test\
+python -m alpha_codium.evaluate_dataset \
+--dataset_name /path/to/dataset \
+--split_name test \
 --database_solution_path /path/to/output/dir/dataset_output.json
 ```
 

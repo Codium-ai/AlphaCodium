@@ -5,8 +5,18 @@
 venv/
 
 # codecontests datasets
+# https://huggingface.co/datasets/talrid/CodeContests_valid_and_test_AlphaCodium/blob/main/codecontests_valid_and_test_processed_alpha_codium.zip
 valid_and_test_processed/
 
 # Python cache files
 **/__pycache__/
+
+# Cache files generated during documentation builds
 docs/.cache/
+
+# IDEA project-specific settings and configuration files
+.idea/
+
+alpha_codium/settings/.secrets.toml
+dataset_output.json
+example.log
