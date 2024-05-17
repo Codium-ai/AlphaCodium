@@ -10,7 +10,8 @@ Official Implementation
 
 Updated AlphaCodium leaderboard with scores of new GPT models, and Claude3 Opus. "GPT-4o" Is currently the leading model on AlphaCodium.
 
-![image](https://github.com/Codium-ai/AlphaCodium/assets/21198860/0c10eb0c-9c75-414c-bbc9-549bb589f506)
+![image](https://github.com/Codium-ai/AlphaCodium/assets/21198860/fdbfd35a-cb86-4a2a-9dc1-ad72080c0765)
+
 
 
 
