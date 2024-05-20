@@ -8,10 +8,13 @@ from alpha_codium.gen.stages.run_baseline import run_baseline
 from alpha_codium.gen.stages.run_choose_best_solution import run_choose_best_solution
 from alpha_codium.gen.stages.run_evaluate_all_ai_tests import run_evaluate_all_ai_tests
 from alpha_codium.gen.stages.run_evaluate_public_tests import run_evaluate_public_tests
+from alpha_codium.gen.stages.run_public_tests import run_public_tests
 from alpha_codium.gen.stages.run_generate_ai_test import run_generate_ai_tests
+from alpha_codium.gen.stages.run_code_structure_generation import run_code_structure_generation
 from alpha_codium.gen.stages.run_generate_possible_solutions import run_generate_possible_solutions
 from alpha_codium.gen.stages.run_self_reflect import run_self_reflect
 from alpha_codium.gen.stages.run_initial_code_generation import run_initial_code_generation
+from alpha_codium.gen.stages.run_function_body_generation import run_function_body_generation
 from alpha_codium.gen.stages.utils import set_configurations
 from alpha_codium.gen.utils import evaluate_solution_on_subset
 from alpha_codium.llm.ai_handler import AiHandler
@@ -66,31 +69,31 @@ class CodeContestsCompetitor:
             if get_settings().get("solve.use_baseline", False):
                 problem['code_recent_solution'] = await run_baseline(self, problem)
             else:
-                # configurations
+                #configurations
                 problem = set_configurations(problem, iteration)
 
-                # self-reflect
+                # # self-reflect
                 problem = await run_self_reflect(self, problem)
 
-                # generate solutions
+                # # generate solutions
                 problem = await run_generate_possible_solutions(self, problem)
 
-                # choose best solution
+                # # choose best solution
                 problem = await run_choose_best_solution(self, problem)
 
-                # generate ai tests
-                problem = await run_generate_ai_tests(self, problem)
+                # # generate ai tests (only inputs)
+                # # problem = await run_generate_ai_tests(self, problem)
 
-                # initial code generation
-                problem = await run_initial_code_generation(self, problem)
+                # # generate code structure
+                problem = await run_code_structure_generation(self, problem)
 
-                # evaluate on public tests
-                problem = await run_evaluate_public_tests(self, problem)
+                # # function body generation
+                problem = await run_function_body_generation(self, problem)
 
-                # evaluate on ai tests
-                problem = await run_evaluate_all_ai_tests(self, problem)
-
-            return problem['code_recent_solution']
+                #evaluate on tests
+                problem = await run_public_tests(self, problem)
+                pass
+            return problem['code']
         except Exception as e:
             logging.error(f"Error: {e}")
             return ""

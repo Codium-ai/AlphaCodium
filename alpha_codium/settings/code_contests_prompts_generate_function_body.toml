@@ -1,0 +1,81 @@
+[code_contests_prompts_generate_function_body]
+temperature = 0.3
+system= """\
+- You are a seasoned programmer. ouput nothing other than the code.
+- Double-check the solution code. The generated solution must generalize to any valid input, and not just the provided examples.
+"""
+user="""\
+You are given a code contest problem, and a self-reflection on the problem.
+
+
+problem description:
+=============
+{{ description|trim }}
+=============
+
+
+self-reflection on the problem:
+======
+{{ self_reflection|trim }}
+======
+
+Your goal is to generate a valid Python implementation for all functions of the following code structure, according to the following algorithm:
+Algorithm:
+=============
+{{ s_best_solution_str|trim }}
+=============
+Code Structure:
+=============
+{{ code_structure|trim }}
+=============
+
+Guidelines:
+- Use  meaningful names for parameters and variables.
+- Double-check each function. It should implement the part of algorithm in its comments, and generalize to any valid parameters, and not just the provided examples.
+- Make sure to address the problem constraints.
+- Add necessary imports.
+- Output should be a self-contained code.
+- Ouput just the code, output nothing before or after the code.
+- Keep the code structure and the comments intact.
+
+
+Your output should follow this structure:
+```
+import ...
+def f2(...):
+    '''
+    part of algorithm
+    calls nothing
+    returns ...
+    '''
+    ...
+    return ...
+
+def f1(...):
+    '''
+    part of algorithm
+    calls f2()
+    returns ...
+    '''
+    ...
+    return ...
+...
+
+def main():
+    '''
+    Main execution flow of the program.
+    Calls f2().
+    '''
+    ...
+
+if __name__ == "__main__":
+    main()
+```
+
+The code should read the input using the 'input()' method. Make sure to properly parse the input, according to the problem description.
+The output should be printed without additional words using the 'print()' method.
+
+Answer:
+```python
+"""
+
