@@ -33,5 +33,5 @@ pysnooper
 loguru
 numpy
 retry
-
+pydantic>=2.8.2
 # uninstall ipython to catch breakpoints on debug with sandbox==false
