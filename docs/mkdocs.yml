@@ -1,4 +1,4 @@
-site_name: AlphaCodium Documentation
+site_name: qodo Flow Documentation
 description: Documentation for AlphaCodium - From Prompt Engineering to Flow Engineering.
 repo_url: https://github.com/Codium-ai/AlphaCodium
 repo_name: Codium-ai/AlphaCodium
@@ -96,4 +96,4 @@ markdown_extensions:
       permalink: true
   
 copyright: |
-  &copy; 2024 <a href="https://www.codium.ai/"  target="_blank" rel="noopener">CodiumAI</a>
+  &copy; 2024 <a href="https://www.qodo.ai/"  target="_blank" rel="noopener">Qodo</a>
