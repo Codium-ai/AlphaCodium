@@ -1,5 +1,5 @@
-site_name: AlphaCodium Documentation
-description: Documentation for AlphaCodium - From Prompt Engineering to Flow Engineering.
+site_name: qodo Flow Documentation
+description: Documentation for qodo Flow - From Prompt Engineering to Flow Engineering.
 repo_url: https://github.com/Codium-ai/AlphaCodium
 repo_name: Codium-ai/AlphaCodium
 
@@ -60,13 +60,13 @@ extra:
     - icon: fontawesome/brands/discord
       link: https://discord.com/invite/SgSxuQ65GF
     - icon: fontawesome/brands/youtube
-      link: https://www.youtube.com/@Codium-AI
+      link: https://www.youtube.com/@QodoAI
     - icon: fontawesome/brands/linkedin
-      link: https://www.linkedin.com/company/codiumai
+      link: https://www.linkedin.com/company/qodoai
     - icon: fontawesome/brands/twitter
-      link: https://twitter.com/CodiumAI
+      link: https://twitter.com/QodoAI
     - icon: fontawesome/brands/instagram
-      link: https://www.instagram.com/codiumai/
+      link: https://www.instagram.com/qodo_ai
   analytics:
     provider: custom
     property: ${{ secrets.GOOGLE_ANALYTICS_ID }}
@@ -96,4 +96,4 @@ markdown_extensions:
       permalink: true
   
 copyright: |
-  &copy; 2024 <a href="https://www.codium.ai/"  target="_blank" rel="noopener">CodiumAI</a>
+  &copy; 2024 <a href="https://www.codium.ai/"  target="_blank" rel="noopener">Qodo</a>

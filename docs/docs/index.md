@@ -1,6 +1,6 @@
-# AlphaCodium 
+# qodo Flow 
 
-Code Generation with AlphaCodium: From Prompt Engineering to Flow Engineering.
+Code Generation with qodo Flow: From Prompt Engineering to Flow Engineering.
 
 [Paper](https://arxiv.org/abs/2401.08500) |
 [Dataset](https://huggingface.co/datasets/talrid/CodeContests_valid_and_test_AlphaCodium/blob/main/codecontests_valid_and_test_processed_alpha_codium.zip)
@@ -13,10 +13,10 @@ Tal Ridnik, Dedy Kredo, Itamar Friedman
 
 Code generation problems differ from common natural language problems - they require matching the exact syntax of the target language, identifying happy paths and edge cases, paying attention to numerous small details in the problem spec, and addressing other code-specific issues and requirements. Hence, many of the optimizations and tricks that have been successful in natural language generation may not be effective for code tasks.
 
-In this work, we propose a new approach to code generation by LLMs, which we call AlphaCodium - a test-based, multi-stage, code-oriented iterative flow, that improves the performances of LLMs on code problems.
+In this work, we propose a new approach to code generation by LLMs, which we call qodo Flow - a test-based, multi-stage, code-oriented iterative flow, that improves the performances of LLMs on code problems.
 
-We tested AlphaCodium on a challenging code generation dataset called CodeContests, which includes competitive programming problems from platforms such as Codeforces. The proposed flow consistently and significantly improves results.
-On the validation set, for example, GPT-4 accuracy (pass@5) increased from 19% with a single well-designed direct prompt to 44% with the AlphaCodium flow. 
+We tested qodo Flow on a challenging code generation dataset called CodeContests, which includes competitive programming problems from platforms such as Codeforces. The proposed flow consistently and significantly improves results.
+On the validation set, for example, GPT-4 accuracy (pass@5) increased from 19% with a single well-designed direct prompt to 44% with the qodo Flow flow. 
 
 Many of the principles and best practices we acquired in this work, we believe, are broadly applicable to general code generation tasks.
 
@@ -42,7 +42,7 @@ The file: `alpha_codium/settings/configuration.toml` contains the configuration 
 In the `config` section you can choose the model you want to use ("gpt-4", "gpt-3.5-turbo-16k", or others).
 
 ### Solving a specific problem
-To solve a specific problem with AlphaCodium, from the root folder run:
+To solve a specific problem with qodo Flow, from the root folder run:
 ```
 python -m alpha_codium.solve_problem \
 --dataset_name /path/to/dataset \
@@ -64,7 +64,7 @@ enable to adjust possible configurations for the different stages of the flow.
 ![Example problem (test set, problem number 12)](https://github.com/Codium-ai/AlphaCodium/blob/main/pics/example_problem.png?raw=true)
 
 ### Solving the entire dataset
-to solve the entire dataset with AlphaCodium, from the root folder run:
+to solve the entire dataset with qodo Flow, from the root folder run:
 ```
 python -m alpha_codium.solve_dataset \
 --dataset_name /path/to/dataset \
@@ -100,7 +100,7 @@ ___
 **Q: How do you know that there wasn't a data leakage?** 
 
 **A:** The test set of CodeContests dataset comprises problems published after September 2021, while the GPT-4 model variant we used (gpt-4-0613) has a data cutoff of September 2021. Hence, there is no data leakage for GPT4, on the test set.
-For other models like DeepSeek, we cannot be sure. However, note that our [main result](https://github.com/Codium-ai/AlphaCodium/blob/main/pics/comparison.png?raw=true) is a comparison of "direct prompt" vs. "AlphaCodium flow". Data leakage would help both approaches, so the relative improvement of AlphaCodium flow is still valid.
+For other models like DeepSeek, we cannot be sure. However, note that our [main result](https://github.com/Codium-ai/AlphaCodium/blob/main/pics/comparison.png?raw=true) is a comparison of "direct prompt" vs. "qodo Flow". Data leakage would help both approaches, so the relative improvement of qodo Flow is still valid.
 ___
 
 **Q: Is this project relevant only to specific programming languages?**
@@ -118,7 +118,7 @@ ___
 
 **Q: Is this work "realistic" in terms of the number of LLM calls?** 
 
-**A:** In comparison to AlphaCode, we do four orders of magnitude (!) fewer [calls](https://github.com/Codium-ai/AlphaCodium/blob/main/pics/computational_effort.png?raw=true) (per solution AlphaCodium does 15-20 calls).
+**A:** In comparison to AlphaCode, we do four orders of magnitude (!) fewer [calls](https://github.com/Codium-ai/AlphaCodium/blob/main/pics/computational_effort.png?raw=true) (per solution qodo Flow does 15-20 calls).
 Yet we acknowledge that for some applications, this may still be too much, and more optimizations are needed. We however believe that many of the ideas and principles we acquired in this work are broadly applicable, even when the number of calls is further limited.
 ___
 **Q: Why do you iterate only on the generated code, and not on the AI-generated tests?**
