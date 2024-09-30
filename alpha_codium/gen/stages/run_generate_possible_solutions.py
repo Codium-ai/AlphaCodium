@@ -26,9 +26,10 @@ async def run_generate_possible_solutions(self, problem):
 
             # inference
             response_possible_solutions, _ = await send_inference(f)
-            response_possible_solutions_yaml = load_yaml(response_possible_solutions)
+            response_possible_solutions_yaml = load_yaml(response_possible_solutions,
+                                                         keys_fix_yaml=["name:", "key_observations:", "content:", "why_it_works:", "labels:", "complexity:", "- "])
 
-            if get_settings().get('possible_solutions.remove_bruce_force_solutions'):
+            if get_settings().get('possible_solutions.remove_brute_force_solutions'):
                 for i, s in enumerate(response_possible_solutions_yaml['possible_solutions']):
                     if 'brute' in s['name'].lower():
                         response_possible_solutions_yaml['possible_solutions'].pop(i)

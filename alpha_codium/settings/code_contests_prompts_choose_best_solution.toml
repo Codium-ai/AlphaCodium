@@ -1,6 +1,8 @@
 [code_contests_prompts_choose_best_solution]
 temperature = 0.2
 system = """\
+- As a seasoned programmer, choose the best solution.
+- Output nothing other that the YAML.
 """
 
 User="""\
@@ -26,22 +28,15 @@ Here is a list of {{ s_possible_solutions|length }} possible solutions to the pr
 
 
 Using the inputs above, your goal is to choose the best solution to the code contest problem.
-Don't just pick the most efficient solution. The main consideration is that the solution can fully solve the problem in a simple and robust manner.
+Don't just pick the most efficient solution. The main consideration is that the solution has the most insightfull key observation and can fully solve the problem in a simple and robust manner.
 Make sure the chosen solution has a reasonable runtime - less than three seconds on a modern computer, given the problem constraints regarding large inputs.
+Do not change the selected solution.
 
 The output must be a YAML object equivalent to type $ProblemSolution, according to the following Pydantic definitions:
 =======
-class Test(BaseModel):
-    input: str
-    output: str
-
 class ProblemSolution(BaseModel):
     name: str = Field(description="The name of the best solution")
-    content: str = Field(description="The content of the best solution")
     why: str = Field(description="Shortly explain why is this the best solution")
-    flow: List[str] = Field(description="Describe of the flow of the solution, in bullet points")
-    problem_tests: List[Test] = Field("List the input-output examples that are provided in the problem description.")
-    input_output_examples_flow: List[str] = Field(description="Describe, in bullet points, how the proposed flow will lead to getting the expected output for the provided input examples")
 =======
 
 
@@ -49,30 +44,24 @@ Example YAML output:
 ```yaml
 name: |
   ...
+key_observations:
+  - ...
+  - ...
 content: |
   ...
-why: |
+why_it_works: |
   ...
-flow:
-- |
+labels:
+  - ...
+  - ...
+complexity: |
   ...
-- |
-  ...
-...
-problem_tests:
-- input: |
-    ...
-  output: |
-    ...
-input_output_examples_flow:
-- |
-  ...
-- |
+why_is_best_solution: |
   ...
 ```
 
 Each YAML output MUST be after a newline, indented, with block scalar indicator ('|').
 
 Answer:
-```yaml\
+```yaml
 """
