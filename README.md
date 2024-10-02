@@ -57,11 +57,19 @@ source ./venv/bin/activate
 ```
 and run: `pip install -r requirements.txt`.
 
-(2) Duplicate the file `alpha_codium/settings/.secrets_template.toml`, rename it as `alpha_codium/settings/.secrets.toml`, and fill in your OpenAI API key:
+(2) Determine your model provider. 
+
+For OpenAI:
+- Duplicate the file `alpha_codium/settings/.secrets_template.toml`, rename it as `alpha_codium/settings/.secrets.toml`, and fill in your OpenAI API key:
 ```
 [openai]
 key = "..."
 ```
+- Verify that one of the "chat" models is selected in 'alpha_codium/settings/configuration.toml'.
+
+For AWS Bedrock:
+- log in to AWS using your standard AWS CLI method. LiteLLM will use boto3 to connect to AWS and so either your profile credentials from ~/.aws/credentials or the environment values AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION_NAME.
+- ensure model in 'alpha_codium/settings/configuration.toml' is 'bedrock/<aws model id>'.
 
 (3) Download the processed CodeContest validation and test dataset from [hugging face](https://huggingface.co/datasets/talrid/CodeContests_valid_and_test_AlphaCodium/blob/main/codecontests_valid_and_test_processed_alpha_codium.zip), extract the zip file, and placed the extracted folder in the root of the project.
 
@@ -127,7 +135,7 @@ To solve a custom problem with AlphaCodium, first create a json file that includ
 python -m alpha_codium.solve_my_problem \
 --my_problem_json_file /path/to/my_problem.json
 ```
-- The `my_problem_json_file` is the path to to the custom problem json file.
+- The `my_problem_json_file` is the path to the custom problem json file.
 
 See the `my_problem_example.json` to see an example of a custom problem. The json file should include the following fields:
 - `name` is the name of the problem.
